@@ -6,27 +6,12 @@
     </div>
     <div class="form-group">
       <label class="alert-info" >Selecciona las asignaturas suspensas</label>
-      <div class="form-check">
+      <div class="form-check" *ngFor="let subject of subjectsInDataBase">
         <input class="form-check-input" type="checkbox" id="inglesAsignatura" value="option1">
-        <label class="form-check-label" for="inglesAsignatura">Inglés</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="matematicasAsignatura" value="option2">
-        <label class="form-check-label" for="matematicasAsignatura">Matemáticas</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="socialesAsignatura" value="option3" >
-        <label class="form-check-label" for="socialesAsignatura">Sociales</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="lenguAsignatura" value="option3" >
-        <label class="form-check-label" for="lenguAsignatura">Lengua</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="conoAsignatura" value="option3" >
-        <label class="form-check-label" for="conoAsignatura">Conocimiento del medio</label>
+        <label class="form-check-label" for="inglesAsignatura">{{subject.subjectInfo.name}} - {{subject.getSubjectClass()}}</label>
       </div>
     </div>
+    <button type="button" (click)="getSubjectInStudents()">Obtener asignaturas</button>
   </form>
 </div>
 
