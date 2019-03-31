@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { StudentsComponent } from './students/students.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ClassesComponent } from './classes/classes.component';
     BrowserModule,
     AppRoutingModule,
       HttpClientModule,
+      FormsModule
   ],
   providers: [
 

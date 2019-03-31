@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SubjectsService} from '../subjects.service';
 import {SubjectsDataModel} from '../SubjectsDataModel';
 import {SingleSubjectModel} from '../SingleSubjectModel';
 import {ClassDataModel} from '../ClassDataModel';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-students',
@@ -12,6 +13,7 @@ import {ClassDataModel} from '../ClassDataModel';
 export class StudentsComponent implements OnInit {
 
   subjectsInDataBase: SubjectsDataModel [] = [];
+  @ViewChild('f') signUpForm: NgForm;
 
   constructor(private subjectsService: SubjectsService) { }
 
@@ -30,8 +32,9 @@ export class StudentsComponent implements OnInit {
       );
   }
 
-  getSubjectInStudents() {
-    this.subjectsService.getSubjectsForJson();
+  onSubmit() {
+      console.log(this.signUpForm);
+
   }
 
 }
