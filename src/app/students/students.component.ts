@@ -4,6 +4,8 @@ import {SubjectsDataModel} from '../SubjectsDataModel';
 import {SingleSubjectModel} from '../SingleSubjectModel';
 import {ClassDataModel} from '../ClassDataModel';
 import {NgForm} from '@angular/forms';
+import {InfoStudentModel} from '../InfoStudentModel';
+import {StudentsModel} from '../StudentsModel';
 
 @Component({
   selector: 'app-students',
@@ -14,6 +16,7 @@ export class StudentsComponent implements OnInit {
 
   subjectsInDataBase: SubjectsDataModel [] = [];
   @ViewChild('f') signUpForm: NgForm;
+  defaultSubject = false;
 
   constructor(private subjectsService: SubjectsService) { }
 
@@ -33,7 +36,27 @@ export class StudentsComponent implements OnInit {
   }
 
   onSubmit() {
-      console.log(this.signUpForm);
+
+
+      const subjects: SubjectsDataModel [] = [];
+      Object.keys(this.signUpForm.value.subjectsData).forEach(key => {
+          const value = this.signUpForm.value.subjectsData[key];
+          if (value) {
+              const classDataModel = new ClassDataModel(value.subjectInfo.associatedClass.idClass, value.subjectInfo.associatedClass.name);
+              const singleSubjectModel = new SingleSubjectModel(value.subjectInfo.name, classDataModel);
+              const subjectDataModel = new SubjectsDataModel(key, singleSubjectModel);
+              subjects.push(subjectDataModel);
+          }
+      });
+      console.log(subjects);
+      const infoStudent = new InfoStudentModel(this.signUpForm.value.student, subjects);
+      const newStudent = new StudentsModel("adad", infoStudent);
+      console.log(infoStudent);
+      this.subjectsService.addNewStudent (newStudent).
+        subscribe(
+          (response) => console.log(response),
+          (error) => console.log(error)
+      );
 
   }
 

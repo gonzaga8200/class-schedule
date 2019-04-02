@@ -1,7 +1,7 @@
 import {SubjectsDataModel} from './SubjectsDataModel';
 
 export class InfoStudentModel {
-    constructor (private name: string, subjects: SubjectsDataModel []) {
+    constructor (public name: string, public subjects: SubjectsDataModel []) {
 
     }
 }

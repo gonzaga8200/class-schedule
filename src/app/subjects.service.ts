@@ -7,7 +7,7 @@ import {StudentsModel} from './StudentsModel';
 })
 export class SubjectsService {
   urlSubjects =  'https://class-schedule-fd50c.firebaseio.com/subjects.json';
-  urlStudents =  'https://class-schedule-fd50c.firebaseio.com/students.json';
+  urlStudents =  'https://class-schedule-fd50c.firebaseio.com/students/';
 
   constructor(private http: HttpClient) { }
 
@@ -18,6 +18,6 @@ export class SubjectsService {
   }
 
   addNewStudent(student: StudentsModel) {
-      return this.http.post(this.urlStudents, student);
+      return this.http.put(this.urlStudents + student.infoStudent.name + '.json', student);
   }
 }

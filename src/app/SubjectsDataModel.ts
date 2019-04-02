@@ -8,4 +8,8 @@ export class SubjectsDataModel {
     getSubjectClass() {
         return this.subjectInfo.associatedClass.name;
     }
+
+    getSubjectId() {
+        return this.subjectInfo.associatedClass.idClass;
+    }
 }
