@@ -1,7 +1,8 @@
-import {SubjectsDataModel} from './SubjectsDataModel';
+import {SubjectModel} from './SubjectModel';
+
 
 export class StudentModel {
-    constructor (public name: string, public subjects: SubjectsDataModel []) {
+    constructor (public name: string, public subjects: SubjectModel []) {
 
     }
 }

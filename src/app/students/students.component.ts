@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SubjectsService} from '../subjects.service';
-import {SubjectsDataModel} from '../models/SubjectsDataModel';
-import {SingleSubjectModel} from '../models/SingleSubjectModel';
-import {ClassDataModel} from '../models/ClassDataModel';
 import {NgForm} from '@angular/forms';
 import {StudentModel} from '../models/StudentModel';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {SubjectModel} from '../models/SubjectModel';
 
 @Component({
   selector: 'app-students',
@@ -14,10 +12,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 })
 export class StudentsComponent implements OnInit {
 
-  subjectsInDataBase: SubjectsDataModel [] = [];
-  students: StudentModel [] = [];
+  subjectsInDataBase: SubjectModel [] = [];
   @ViewChild('f') signUpForm: NgForm;
   defaultSubject = false;
+  students: StudentModel [] = []
 
   constructor(private subjectsService: SubjectsService) { }
 
@@ -27,9 +25,7 @@ export class StudentsComponent implements OnInit {
           (response) => {
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  const subjectClass = new ClassDataModel(value.class.idClass, value.class.name);
-                  const infoSubject = new SingleSubjectModel(value.name, subjectClass);
-                  const subject = new SubjectsDataModel(key, infoSubject);
+                  const subject = new SubjectModel(value.name, value.associatedClass);
                   this.subjectsInDataBase.push(subject);
               });
           }
@@ -38,8 +34,11 @@ export class StudentsComponent implements OnInit {
         subscribe(
           (response) => {
               Object.keys(response).forEach(key => {
-                  //const newStudent = new StudentModel(studen)
+                  const value = response[key];
+                  const newStudent = new StudentModel(value.name, value.subjects);
+                  this.students.push(newStudent);
               })
+              console.log(this.students);
           }
       )
   }
@@ -47,14 +46,12 @@ export class StudentsComponent implements OnInit {
   onSubmit() {
 
 
-      const subjects: SubjectsDataModel [] = [];
+      const subjects: SubjectModel [] = [];
       Object.keys(this.signUpForm.value.subjectsData).forEach(key => {
           const value = this.signUpForm.value.subjectsData[key];
           if (value) {
-              const classDataModel = new ClassDataModel(value.subjectInfo.associatedClass.idClass, value.subjectInfo.associatedClass.name);
-              const singleSubjectModel = new SingleSubjectModel(value.subjectInfo.name, classDataModel);
-              const subjectDataModel = new SubjectsDataModel(key, singleSubjectModel);
-              subjects.push(subjectDataModel);
+              const subject = new SubjectModel(value.name, value.associatedClass);
+              subjects.push(subject);
           }
       });
       console.log(subjects);

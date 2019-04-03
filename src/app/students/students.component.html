@@ -17,12 +17,12 @@
         <input
                 class="form-check-input"
                 type="checkbox"
-                id="{{subject.idSubject}}"
+                id="{{subject.name}}"
                 [ngModel]="subject"
-                [name]="subject.idSubject"
+                [name]="subject.name"
                 [checked]="false"
-                [value]="subject.subjectInfo.name">
-        <label class="form-check-label" for="{{subject.idSubject}}">{{subject.subjectInfo.name}} - {{subject.getSubjectClass()}}</label>
+                [value]="subject.name">
+        <label class="form-check-label" for="{{subject.name}}">{{subject.name}} - {{subject.getSubjectClass()}}</label>
       </div>
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Añadir Alumno</button>
