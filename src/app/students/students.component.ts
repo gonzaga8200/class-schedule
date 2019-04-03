@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SubjectsService} from '../subjects.service';
-import {SubjectsDataModel} from '../SubjectsDataModel';
-import {SingleSubjectModel} from '../SingleSubjectModel';
-import {ClassDataModel} from '../ClassDataModel';
+import {SubjectsDataModel} from '../models/SubjectsDataModel';
+import {SingleSubjectModel} from '../models/SingleSubjectModel';
+import {ClassDataModel} from '../models/ClassDataModel';
 import {NgForm} from '@angular/forms';
-import {StudentModel} from '../StudentModel';
+import {StudentModel} from '../models/StudentModel';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-students',
@@ -14,6 +15,7 @@ import {StudentModel} from '../StudentModel';
 export class StudentsComponent implements OnInit {
 
   subjectsInDataBase: SubjectsDataModel [] = [];
+  students: StudentModel [] = [];
   @ViewChild('f') signUpForm: NgForm;
   defaultSubject = false;
 
@@ -32,6 +34,14 @@ export class StudentsComponent implements OnInit {
               });
           }
       );
+      this.subjectsService.getStudents().
+        subscribe(
+          (response) => {
+              Object.keys(response).forEach(key => {
+                  //const newStudent = new StudentModel(studen)
+              })
+          }
+      )
   }
 
   onSubmit() {

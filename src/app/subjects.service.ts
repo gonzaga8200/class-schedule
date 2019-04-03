@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {StudentModel} from './StudentModel';
+import {StudentModel} from './models/StudentModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,10 @@ export class SubjectsService {
 
       return this.http.get(this.urlSubjects);
 
+  }
+
+  getStudents() {
+      return this.http.get(this.urlStudents);
   }
 
   addNewStudent(student: StudentModel) {
