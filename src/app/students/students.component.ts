@@ -4,8 +4,7 @@ import {SubjectsDataModel} from '../SubjectsDataModel';
 import {SingleSubjectModel} from '../SingleSubjectModel';
 import {ClassDataModel} from '../ClassDataModel';
 import {NgForm} from '@angular/forms';
-import {InfoStudentModel} from '../InfoStudentModel';
-import {StudentsModel} from '../StudentsModel';
+import {StudentModel} from '../StudentModel';
 
 @Component({
   selector: 'app-students',
@@ -49,9 +48,8 @@ export class StudentsComponent implements OnInit {
           }
       });
       console.log(subjects);
-      const infoStudent = new InfoStudentModel(this.signUpForm.value.student, subjects);
-      const newStudent = new StudentsModel("adad", infoStudent);
-      console.log(infoStudent);
+      const newStudent = new StudentModel (this.signUpForm.value.student, subjects);
+      console.log(newStudent);
       this.subjectsService.addNewStudent (newStudent).
         subscribe(
           (response) => console.log(response),

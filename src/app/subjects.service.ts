@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {StudentsModel} from './StudentsModel';
+import {StudentModel} from './StudentModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubjectsService {
   urlSubjects =  'https://class-schedule-fd50c.firebaseio.com/subjects.json';
-  urlStudents =  'https://class-schedule-fd50c.firebaseio.com/students/';
+  urlStudents =  'https://class-schedule-fd50c.firebaseio.com/students.json';
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +17,7 @@ export class SubjectsService {
 
   }
 
-  addNewStudent(student: StudentsModel) {
-      return this.http.put(this.urlStudents + student.infoStudent.name + '.json', student);
+  addNewStudent(student: StudentModel) {
+      return this.http.post(this.urlStudents, student);
   }
 }
