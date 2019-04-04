@@ -7,7 +7,9 @@ import { HeaderComponent } from './header/header.component';
 import { StudentsComponent } from './students/students.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,12 @@ import {FormsModule} from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
       HttpClientModule,
-      FormsModule
+      FormsModule,
+      MatAutocompleteModule,
+      MatFormFieldModule,
+      ReactiveFormsModule,
+      MatInputModule,
+      BrowserAnimationsModule
   ],
   providers: [
 

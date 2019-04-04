@@ -1,9 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SubjectsService} from '../subjects.service';
-import {NgForm} from '@angular/forms';
+import {FormControl, NgForm} from '@angular/forms';
 import {StudentModel} from '../models/StudentModel';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SubjectModel} from '../models/SubjectModel';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-students',
@@ -15,9 +17,24 @@ export class StudentsComponent implements OnInit {
   subjectsInDataBase: SubjectModel [] = [];
   @ViewChild('f') signUpForm: NgForm;
   defaultSubject = false;
-  students: StudentModel [] = []
+  students: StudentModel [] = [];
+  myControl = new FormControl();
+  filteredStudents: Observable<StudentModel[]>;
+  studentCtrl = new FormControl();
 
-  constructor(private subjectsService: SubjectsService) { }
+  constructor(private subjectsService: SubjectsService) {
+      this.filteredStudents = this.studentCtrl.valueChanges
+          .pipe(
+              startWith(''),
+              map(student => student ? this._filterStudents(student) : this.students.slice())
+          );
+  }
+
+    private _filterStudents(value: string): StudentModel[] {
+        const filterValue = value.toLowerCase();
+
+        return this.students.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
+    }
 
   ngOnInit() {
       this.subjectsService.getSubjectsForJson().

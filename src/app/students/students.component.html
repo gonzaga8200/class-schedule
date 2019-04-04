@@ -26,6 +26,18 @@
       </div>
     </div>
     <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Añadir Alumno</button>
+
   </form>
+    <form class="example-form">
+        <mat-form-field>
+            <input type="text"  aria-label="Number" matInput [formControl]="studentCtrl" [matAutocomplete]="auto">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let student of filteredStudents | async" [value]="student.name">
+                {{ student.name }}
+            </mat-option>
+        </mat-autocomplete>
+    </form>
+
 </div>
 
