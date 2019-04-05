@@ -8,15 +8,25 @@ import { StudentsComponent } from './students/students.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatFormFieldModule,
+  MatGridList,
+  MatGridListModule,
+  MatGridTile,
+  MatInputModule,
+  MatTabGroup, MatTabsModule
+} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ShowStudentsComponent } from './show-students/show-students.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     StudentsComponent,
-    ClassesComponent
+    ClassesComponent,
+    ShowStudentsComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +37,20 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       MatFormFieldModule,
       ReactiveFormsModule,
       MatInputModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      MatGridListModule,
+      MatTabsModule
+  ],
+  exports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ],
   providers: [
 

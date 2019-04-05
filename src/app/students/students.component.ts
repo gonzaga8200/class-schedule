@@ -16,25 +16,13 @@ export class StudentsComponent implements OnInit {
 
   subjectsInDataBase: SubjectModel [] = [];
   @ViewChild('f') signUpForm: NgForm;
-  defaultSubject = false;
   students: StudentModel [] = [];
-  myControl = new FormControl();
-  filteredStudents: Observable<StudentModel[]>;
-  studentCtrl = new FormControl();
 
   constructor(private subjectsService: SubjectsService) {
-      this.filteredStudents = this.studentCtrl.valueChanges
-          .pipe(
-              startWith(''),
-              map(student => student ? this._filterStudents(student) : this.students.slice())
-          );
+
   }
 
-    private _filterStudents(value: string): StudentModel[] {
-        const filterValue = value.toLowerCase();
 
-        return this.students.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
-    }
 
   ngOnInit() {
       this.subjectsService.getSubjectsForJson().
@@ -55,7 +43,6 @@ export class StudentsComponent implements OnInit {
                   const newStudent = new StudentModel(value.name, value.subjects);
                   this.students.push(newStudent);
               })
-              console.log(this.students);
           }
       )
   }
@@ -79,6 +66,7 @@ export class StudentsComponent implements OnInit {
           (response) => console.log(response),
           (error) => console.log(error)
       );
+      this.students.push(newStudent);
 
   }
 

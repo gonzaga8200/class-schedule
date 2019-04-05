@@ -1,0 +1,24 @@
+<div class="container container-fluid">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Alumno">
+      <form class="example-form">
+        <mat-form-field>
+          <input type="text" placeholder="Introduce Alumno"  aria-label="Number" matInput [formControl]="studentCtrl" [matAutocomplete]="auto">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let student of filteredStudents | async" [value]="student.name">
+            {{ student.name }}
+          </mat-option>
+        </mat-autocomplete>
+        {{studentCtrl.value }}
+
+
+      </form>
+    </mat-tab>
+    <mat-tab label="Listado de Alumnos">
+
+    </mat-tab>
+    <mat-tab label="Third"> Content 3 </mat-tab>
+  </mat-tab-group>
+</div>
+
