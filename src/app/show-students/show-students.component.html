@@ -5,12 +5,16 @@
         <mat-form-field>
           <input type="text" placeholder="Introduce Alumno"  aria-label="Number" matInput [formControl]="studentCtrl" [matAutocomplete]="auto">
         </mat-form-field>
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let student of filteredStudents | async" [value]="student.name">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option (click)="callSomeFunction(studentCtrl.value)"  *ngFor="let student of filteredStudents | async" [value]="student">
             {{ student.name }}
           </mat-option>
         </mat-autocomplete>
-        {{studentCtrl.value }}
+        <ul>
+          <li *ngFor = "let subject of subjects">
+            {{subject.name}}
+          </li>
+        </ul>
 
 
       </form>
