@@ -30,7 +30,7 @@ export class ShowStudentsComponent implements OnInit {
   private _filterStudents(value: string): StudentModel[] {
     const filterValue = value.toLowerCase();
 
-    return this.students.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.students.filter(state => state.name.toLowerCase().includes(filterValue));
   }
 
     displayFn(student?: StudentModel): string | undefined {

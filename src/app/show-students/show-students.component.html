@@ -1,6 +1,6 @@
 <div class="container container-fluid">
   <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Alumno">
+    <mat-tab label="Alumno" mat>
       <form class="example-form">
         <mat-form-field>
           <input type="text" placeholder="Introduce Alumno"  aria-label="Number" matInput [formControl]="studentCtrl" [matAutocomplete]="auto">
@@ -29,9 +29,27 @@
       </form>
     </mat-tab>
     <mat-tab label="Listado de Alumnos">
-
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Alumnos</th>
+                <th scope="col">Asignaturas Suspensas</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor = "let student of students; let i = index">
+                <th scope="row">{{i + 1}}</th>
+                <td>{{student.name}}</td>
+                <td>
+                    <span *ngFor="let subject of student.getSubjects()">
+                        {{subject.name}} |
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </mat-tab>
-    <mat-tab label="Third"> Content 3 </mat-tab>
   </mat-tab-group>
 </div>
 
