@@ -7,6 +7,11 @@ import {SubjectModel} from '../models/SubjectModel';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/internal/operators';
 
+export interface Course {
+    value: string;
+    viewValue: string;
+}
+
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
@@ -17,6 +22,15 @@ export class StudentsComponent implements OnInit {
   subjectsInDataBase: SubjectModel [] = [];
   @ViewChild('f') signUpForm: NgForm;
   students: StudentModel [] = [];
+    courses: Course[] = [
+        {value: '1eso', viewValue: '1º ESO'},
+        {value: '2eso', viewValue: '2º ESO'},
+        {value: '3eso', viewValue: '3º ESO'},
+        {value: '4eso', viewValue: '4º ESO'},
+        {value: 'pmar1', viewValue: 'PMAR 1'},
+        {value: 'pmar2', viewValue: 'PMAR 2'},
+        {value: 'aulaEnlace', viewValue: 'Aula de Enlace'}
+    ];
 
   constructor(private subjectsService: SubjectsService) {
 
@@ -40,7 +54,7 @@ export class StudentsComponent implements OnInit {
           (response) => {
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  const newStudent = new StudentModel(value.name, value.subjects);
+                  const newStudent = new StudentModel(value.name, value.subjects, value.course);
                   this.students.push(newStudent);
               })
           }
@@ -59,7 +73,7 @@ export class StudentsComponent implements OnInit {
           }
       });
       console.log(subjects);
-      const newStudent = new StudentModel (this.signUpForm.value.student, subjects);
+      const newStudent = new StudentModel (this.signUpForm.value.student, subjects, this.signUpForm.value.courseStudent);
       console.log(newStudent);
       this.subjectsService.addNewStudent (newStudent).
         subscribe(

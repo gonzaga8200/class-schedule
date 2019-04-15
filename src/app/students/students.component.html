@@ -11,6 +11,17 @@
               ngModel=""
               placeholder="Escribe el nombre del alumno a ingresar">
     </div>
+    <mat-form-field>
+      <mat-label>Selecciona el curso del alumno</mat-label>
+      <mat-select
+              ngModel=""
+              id="courseStudent"
+              name="courseStudent">
+        <mat-option *ngFor="let course of courses" [value]="course.value" >
+          {{course.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="form-group">
       <label class="alert-info" >Selecciona las asignaturas suspensas</label>
       <div class="form-check" *ngFor="let subject of subjectsInDataBase" ngModelGroup="subjectsData">

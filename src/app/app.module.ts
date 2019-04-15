@@ -9,13 +9,13 @@ import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-  MatAutocompleteModule,
-  MatFormFieldModule,
-  MatGridList,
-  MatGridListModule,
-  MatGridTile,
-  MatInputModule,
-  MatTabGroup, MatTabsModule
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatGridList,
+    MatGridListModule,
+    MatGridTile,
+    MatInputModule, MatSelectModule,
+    MatTabGroup, MatTabsModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ShowStudentsComponent } from './show-students/show-students.component';
@@ -36,6 +36,7 @@ import { ShowStudentsComponent } from './show-students/show-students.component';
       MatAutocompleteModule,
       MatFormFieldModule,
       ReactiveFormsModule,
+      MatSelectModule,
       MatInputModule,
       BrowserAnimationsModule,
       MatGridListModule,
