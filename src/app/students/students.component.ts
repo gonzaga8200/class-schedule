@@ -18,23 +18,15 @@ export interface Course {
   styleUrls: ['./students.component.sass']
 })
 export class StudentsComponent implements OnInit {
-
-  subjectsInDataBase1Eso: SubjectModel [] = [];
-  subjectsInDataBase2Eso: SubjectModel [] = [];
-  subjectsInDataBase3Eso: SubjectModel [] = [];
-  subjectsInDataBase4Eso: SubjectModel [] = [];
-  subjectsInDataBasePmar1: SubjectModel [] = [];
-  subjectsInDataBasePmar2: SubjectModel [] = [];
-  subjectsInDataBaseAulaEnlace: SubjectModel [] = [];
-  subjectsInDataBase: {
-      '1eso': SubjectModel [],
-      '2eso': SubjectModel [],
-      '3eso': SubjectModel [],
-      '4eso': SubjectModel [],
-      'pmar1': SubjectModel [],
-      'pmar2': SubjectModel [],
-      'aulaEnlace': SubjectModel [],
-  }
+  subjectsInDataBase = {
+      '1eso': [],
+      '2eso': [],
+      '3eso': [],
+      '4eso': [],
+      'pmar1': [],
+      'pmar2': [],
+      'aulaEnlace':  []
+  };
   subjectsRepresentation;
 
   @ViewChild('f') signUpForm: NgForm;
@@ -63,27 +55,7 @@ export class StudentsComponent implements OnInit {
               Object.keys(response).forEach(key => {
                   const value = response[key];
                   const subject = new SubjectModel(key, value.name, value.associatedClass, value.course);
-                  if (value.course === '1eso') {
-                      this.subjectsInDataBase1Eso.push(subject);
-                  }
-                  if (value.course === '2eso') {
-                      this.subjectsInDataBase2Eso.push(subject);
-                  }
-                  if (value.course === '3eso') {
-                      this.subjectsInDataBase3Eso.push(subject);
-                  }
-                  if (value.course === '4eso') {
-                      this.subjectsInDataBase4Eso.push(subject);
-                  }
-                  if (value.course === 'pmar1') {
-                      this.subjectsInDataBasePmar1.push(subject);
-                  }
-                  if (value.course === 'pmar2') {
-                      this.subjectsInDataBasePmar2.push(subject);
-                  }
-                  if (value.course === 'aulaEnlace') {
-                      this.subjectsInDataBaseAulaEnlace.push(subject);
-                  }
+                  this.subjectsInDataBase[value.course].push(new SubjectModel(key, value.name, value.associatedClass, value.course));
               });
           }
       );
