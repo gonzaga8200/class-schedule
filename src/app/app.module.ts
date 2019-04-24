@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-    MatAutocompleteModule,
+    MatAutocompleteModule, MatExpansionModule,
     MatFormFieldModule,
     MatGridList,
     MatGridListModule,
@@ -40,7 +40,8 @@ import { ShowStudentsComponent } from './show-students/show-students.component';
       MatInputModule,
       BrowserAnimationsModule,
       MatGridListModule,
-      MatTabsModule
+      MatTabsModule,
+      MatExpansionModule
   ],
   exports: [
     BrowserModule,

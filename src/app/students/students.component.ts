@@ -19,7 +19,24 @@ export interface Course {
 })
 export class StudentsComponent implements OnInit {
 
-  subjectsInDataBase: SubjectModel [] = [];
+  subjectsInDataBase1Eso: SubjectModel [] = [];
+  subjectsInDataBase2Eso: SubjectModel [] = [];
+  subjectsInDataBase3Eso: SubjectModel [] = [];
+  subjectsInDataBase4Eso: SubjectModel [] = [];
+  subjectsInDataBasePmar1: SubjectModel [] = [];
+  subjectsInDataBasePmar2: SubjectModel [] = [];
+  subjectsInDataBaseAulaEnlace: SubjectModel [] = [];
+  subjectsInDataBase: {
+      '1eso': SubjectModel [],
+      '2eso': SubjectModel [],
+      '3eso': SubjectModel [],
+      '4eso': SubjectModel [],
+      'pmar1': SubjectModel [],
+      'pmar2': SubjectModel [],
+      'aulaEnlace': SubjectModel [],
+  }
+  subjectsRepresentation;
+
   @ViewChild('f') signUpForm: NgForm;
   students: StudentModel [] = [];
     courses: Course[] = [
@@ -42,10 +59,31 @@ export class StudentsComponent implements OnInit {
       this.subjectsService.getSubjectsForJson().
         subscribe(
           (response) => {
+              this.subjectsRepresentation = response;
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  const subject = new SubjectModel(value.name, value.associatedClass);
-                  this.subjectsInDataBase.push(subject);
+                  const subject = new SubjectModel(key, value.name, value.associatedClass, value.course);
+                  if (value.course === '1eso') {
+                      this.subjectsInDataBase1Eso.push(subject);
+                  }
+                  if (value.course === '2eso') {
+                      this.subjectsInDataBase2Eso.push(subject);
+                  }
+                  if (value.course === '3eso') {
+                      this.subjectsInDataBase3Eso.push(subject);
+                  }
+                  if (value.course === '4eso') {
+                      this.subjectsInDataBase4Eso.push(subject);
+                  }
+                  if (value.course === 'pmar1') {
+                      this.subjectsInDataBasePmar1.push(subject);
+                  }
+                  if (value.course === 'pmar2') {
+                      this.subjectsInDataBasePmar2.push(subject);
+                  }
+                  if (value.course === 'aulaEnlace') {
+                      this.subjectsInDataBaseAulaEnlace.push(subject);
+                  }
               });
           }
       );
@@ -56,19 +94,19 @@ export class StudentsComponent implements OnInit {
                   const value = response[key];
                   const newStudent = new StudentModel(value.name, value.subjects, value.course);
                   this.students.push(newStudent);
-              })
+              });
           }
-      )
+      );
   }
 
   onSubmit() {
-
-
       const subjects: SubjectModel [] = [];
       Object.keys(this.signUpForm.value.subjectsData).forEach(key => {
           const value = this.signUpForm.value.subjectsData[key];
+          const subjectRepresentation = this.subjectsRepresentation[key];
+          console.log(this.subjectsRepresentation[key]);
           if (value) {
-              const subject = new SubjectModel(value.name, value.associatedClass);
+              const subject = new SubjectModel(key, subjectRepresentation.name, subjectRepresentation.associatedClass, subjectRepresentation.course);
               subjects.push(subject);
           }
       });
