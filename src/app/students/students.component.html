@@ -23,31 +23,11 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-accordion ngModelGroup="subjectsData">
-      <mat-expansion-panel *ngFor="let course of courses">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{course.viewValue}}
-          </mat-panel-title>
-          <mat-panel-description>
-            Asignaturas
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="form-group">
-          <label class="alert-info" >Selecciona las asignaturas suspensas</label>
-          <div class="form-check" *ngFor="let subject of subjectsInDataBase[course.value]">
-            <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="{{subject.idSubject}}"
-                    [ngModel]=""
-                    [name]="subject.idSubject"
-                    >
-            <label class="form-check-label" for="{{subject.idSubject}}">{{subject.name}} - {{subject.getSubjectClass()}}</label>
-          </div>
-        </div>
-      </mat-expansion-panel>
-    </mat-accordion>
+    <app-subjects-selection
+            [subjectsInDataBase]="subjectsInDataBase"
+            [courses]="courses">
+
+    </app-subjects-selection>
     <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Añadir Alumno</button>
 
   </form>

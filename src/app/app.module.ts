@@ -19,6 +19,7 @@ import {
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ShowStudentsComponent } from './show-students/show-students.component';
+import { SubjectsSelectionComponent } from './students/subjects-selection/subjects-selection.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ShowStudentsComponent } from './show-students/show-students.component';
     HeaderComponent,
     StudentsComponent,
     ClassesComponent,
-    ShowStudentsComponent
+    ShowStudentsComponent,
+    SubjectsSelectionComponent
   ],
   imports: [
     BrowserModule,
