@@ -24,10 +24,10 @@
     </mat-form-field>
 
     <mat-accordion ngModelGroup="subjectsData">
-      <mat-expansion-panel>
+      <mat-expansion-panel *ngFor="let course of courses">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            1º Eso
+            {{course.viewValue}}
           </mat-panel-title>
           <mat-panel-description>
             Asignaturas
@@ -35,7 +35,7 @@
         </mat-expansion-panel-header>
         <div class="form-group">
           <label class="alert-info" >Selecciona las asignaturas suspensas</label>
-          <div class="form-check" *ngFor="let subject of subjectsInDataBase['1eso']">
+          <div class="form-check" *ngFor="let subject of subjectsInDataBase[course.value]">
             <input
                     class="form-check-input"
                     type="checkbox"
@@ -45,30 +45,6 @@
                     >
             <label class="form-check-label" for="{{subject.idSubject}}">{{subject.name}} - {{subject.getSubjectClass()}}</label>
           </div>
-        </div>
-
-
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            2º Eso
-          </mat-panel-title>
-          <mat-panel-description>
-            Asignaturas
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="form-check" *ngFor="let subject of subjectsInDataBase['2eso']">
-          <input
-                  class="form-check-input"
-                  type="checkbox"
-                  id="{{subject.idSubject}}"
-                  [ngModel]=""
-                  [name]="subject.idSubject"
-                  >
-          <input type="hidden" [value]="subject" [name]="subject.name + '_hidden'">
-          <label class="form-check-label" for="{{subject.idSubject}}">{{subject.name}} - {{subject.getSubjectClass()}}</label>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
