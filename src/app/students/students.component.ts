@@ -6,6 +6,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SubjectModel} from '../models/SubjectModel';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/internal/operators';
+import {TimeTableClassesModel} from '../models/TimeTableClassesModel';
 
 export interface Course {
     value: string;
@@ -40,6 +41,15 @@ export class StudentsComponent implements OnInit {
         {value: 'pmar2', viewValue: 'PMAR 2'},
         {value: 'aulaEnlace', viewValue: 'Aula de Enlace'}
     ];
+  timeTableHours = ['firstHour', 'secondHour', 'thirdHour', 'fourthHour', 'fifthHour', 'sixthHour'];
+  conversionClassRoomHours = {
+      '1' : [6],
+      '2' : [3, 3],
+      '3' : [2, 2, 2],
+      '4' : [1, 1, 2, 2],
+      '5' : [1, 1, 1, 2, 1],
+      '6' : [1, 1, 1, 1, 1, 1],
+  };
 
   constructor(private subjectsService: SubjectsService) {
 
@@ -54,7 +64,6 @@ export class StudentsComponent implements OnInit {
               this.subjectsRepresentation = response;
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  const subject = new SubjectModel(key, value.name, value.associatedClass, value.course);
                   this.subjectsInDataBase[value.course].push(new SubjectModel(key, value.name, value.associatedClass, value.course));
               });
           }
@@ -64,7 +73,7 @@ export class StudentsComponent implements OnInit {
           (response) => {
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  const newStudent = new StudentModel(value.name, value.subjects, value.course);
+                  const newStudent = new StudentModel(value.name, value.subjects, value.course, value.timeTable);
                   this.students.push(newStudent);
               });
           }
@@ -73,17 +82,43 @@ export class StudentsComponent implements OnInit {
 
   onSubmit() {
       const subjects: SubjectModel [] = [];
+      const studentClassRoomsRepresentation = [];
       Object.keys(this.signUpForm.value.subjectsData).forEach(key => {
           const value = this.signUpForm.value.subjectsData[key];
           const subjectRepresentation = this.subjectsRepresentation[key];
           console.log(this.subjectsRepresentation[key]);
           if (value) {
+              if (!studentClassRoomsRepresentation.includes(subjectRepresentation.associatedClass)) {
+                  studentClassRoomsRepresentation.push(subjectRepresentation.associatedClass);
+              }
+
               const subject = new SubjectModel(key, subjectRepresentation.name, subjectRepresentation.associatedClass, subjectRepresentation.course);
               subjects.push(subject);
           }
       });
+      console.log(studentClassRoomsRepresentation.length);
+      const classVariation = studentClassRoomsRepresentation.length;
+      const studentTimeTable = new TimeTableClassesModel('', '', '3',
+          '', '', '');
+
+      console.log(this.conversionClassRoomHours[classVariation].length);
+      let advanceClassRoom = 0;
+      let advanceInTimeTable = 0;
+      for (let i = 0; i < this.conversionClassRoomHours[classVariation].length; i++) {
+         for (let j = 0; j < this.conversionClassRoomHours[classVariation][i] ; j++) {
+            studentTimeTable[this.timeTableHours[advanceInTimeTable]] = studentClassRoomsRepresentation[advanceClassRoom];
+            advanceInTimeTable++;
+         }
+         advanceClassRoom++;
+      }
+
+      Object.keys(studentTimeTable).forEach(key => {
+
+      })
+
+
       console.log(subjects);
-      const newStudent = new StudentModel (this.signUpForm.value.student, subjects, this.signUpForm.value.courseStudent);
+      const newStudent = new StudentModel (this.signUpForm.value.student, subjects, this.signUpForm.value.courseStudent, studentTimeTable);
       console.log(newStudent);
       this.subjectsService.addNewStudent (newStudent).
         subscribe(

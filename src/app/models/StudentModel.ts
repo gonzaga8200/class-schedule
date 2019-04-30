@@ -1,9 +1,10 @@
 import {SubjectModel} from './SubjectModel';
+import {TimeTableClassesModel} from './TimeTableClassesModel';
 
 
 export class StudentModel {
 
-    constructor (public name: string, public subjects: SubjectModel [], public course: string) {
+    constructor (public name: string, public subjects: SubjectModel [], public course: string, public timeTable: TimeTableClassesModel) {
 
     }
 

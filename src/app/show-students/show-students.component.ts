@@ -51,7 +51,7 @@ export class ShowStudentsComponent implements OnInit {
       (response) => {
         Object.keys(response).forEach(key => {
           const value = response[key];
-          const newStudent = new StudentModel(value.name, value.subjects, value.course);
+          const newStudent = new StudentModel(value.name, value.subjects, value.course, value.timeTable);
           this.students.push(newStudent);
         });
       }
