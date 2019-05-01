@@ -29,7 +29,12 @@
             [courses]="courses">
 
     </app-subjects-selection>
-    <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Añadir Alumno</button>
+    <div class="row">
+      <div class="col text-center">
+        <button type="submit" class="btn btn-primary align-bottom mt-5" [disabled]="!f.valid">Añadir Alumno</button>
+      </div>
+    </div>
+
 
   </form>
 

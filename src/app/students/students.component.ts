@@ -121,6 +121,8 @@ export class StudentsComponent implements OnInit {
       );
       this.students.push(newStudent);
 
+      this.signUpForm.reset();
+
   }
 
 }
