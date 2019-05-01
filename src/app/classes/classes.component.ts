@@ -10,6 +10,8 @@ import {SubjectsService} from '../subjects.service';
 export class ClassesComponent implements OnInit {
 
   classRooms;
+  classRoomsModel = ['sciences', 'literature', 'languages', 'extra', 'work'];
+  hoursModel = ['firstHour', 'secondHour', 'thirdHour', 'fourthHour', 'fifthHour', 'sixthHour']
 
   constructor(private classRoomService: ClassRoomService, private subjectsService: SubjectsService) { }
 
@@ -19,6 +21,11 @@ export class ClassesComponent implements OnInit {
         .subscribe(
             response => {
               this.classRooms = response;
+              Object.keys(this.classRooms).forEach(key => {
+                  Object.keys(this.classRooms[key].timeTable).forEach(key2 => {
+                      this.classRooms[key].timeTable[key2].students = [];
+                  };
+              })
               this.subjectsService.getStudents()
                   .subscribe(
                     students => {
@@ -35,6 +42,7 @@ export class ClassesComponent implements OnInit {
                   );
             }
         );
+
 
   }
 
