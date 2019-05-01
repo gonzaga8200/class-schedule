@@ -86,22 +86,18 @@ export class StudentsComponent implements OnInit {
       Object.keys(this.signUpForm.value.subjectsData).forEach(key => {
           const value = this.signUpForm.value.subjectsData[key];
           const subjectRepresentation = this.subjectsRepresentation[key];
-          console.log(this.subjectsRepresentation[key]);
           if (value) {
               if (!studentClassRoomsRepresentation.includes(subjectRepresentation.associatedClass)) {
                   studentClassRoomsRepresentation.push(subjectRepresentation.associatedClass);
               }
-
               const subject = new SubjectModel(key, subjectRepresentation.name, subjectRepresentation.associatedClass, subjectRepresentation.course);
               subjects.push(subject);
           }
       });
-      console.log(studentClassRoomsRepresentation.length);
       const classVariation = studentClassRoomsRepresentation.length;
       const studentTimeTable = new TimeTableClassesModel('', '', '3',
           '', '', '');
 
-      console.log(this.conversionClassRoomHours[classVariation].length);
       let advanceClassRoom = 0;
       let advanceInTimeTable = 0;
       for (let i = 0; i < this.conversionClassRoomHours[classVariation].length; i++) {
@@ -117,9 +113,7 @@ export class StudentsComponent implements OnInit {
       })
 
 
-      console.log(subjects);
       const newStudent = new StudentModel (this.signUpForm.value.student, subjects, this.signUpForm.value.courseStudent, studentTimeTable);
-      console.log(newStudent);
       this.subjectsService.addNewStudent (newStudent).
         subscribe(
           (response) => console.log(response),
