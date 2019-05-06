@@ -9,12 +9,12 @@ import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-    MatAutocompleteModule, MatExpansionModule,
+    MatAutocompleteModule, MatCardModule, MatExpansionModule,
     MatFormFieldModule,
     MatGridList,
     MatGridListModule,
     MatGridTile,
-    MatInputModule, MatSelectModule,
+    MatInputModule, MatListModule, MatSelectModule, MatSnackBarModule,
     MatTabGroup, MatTabsModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -43,7 +43,10 @@ import { SubjectsSelectionComponent } from './students/subjects-selection/subjec
       BrowserAnimationsModule,
       MatGridListModule,
       MatTabsModule,
-      MatExpansionModule
+      MatExpansionModule,
+      MatSnackBarModule,
+      MatListModule,
+      MatCardModule
   ],
   exports: [
     BrowserModule,

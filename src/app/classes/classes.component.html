@@ -1,5 +1,5 @@
 
-<div *ngFor="let classRoomModel of classRoomsModel">
+<!--<div *ngFor="let classRoomModel of classRoomsModel">
     <p style="font-weight: bold; font-size: 20px; text-align: center">{{classRooms[classRoomModel].name}}</p>
     <div *ngFor="let hour of hoursModel">
         <p style="font-weight: bold; font-size: 20px; text-align: center">{{classRooms[classRoomModel].timeTable[hour].hour}}</p>
@@ -7,5 +7,47 @@
             {{student}}
         </div>
     </div>
+</div>-->
+
+<div class="container">
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab [label]="classRooms[classRoomModel].name" *ngFor="let classRoomModel of classRoomsModel">
+            <!--<mat-grid-list cols="2" >
+
+                <mat-grid-tile
+                        *ngFor="let hour of hoursModel"
+                        style.background="blue">
+                    <mat-card>
+                        {{classRooms[classRoomModel].timeTable[hour].hour}}
+                        <mat-list role="list">
+                            <mat-list-item role="listitem" *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students">
+                                {{student}}
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card>
+
+
+
+
+
+                </mat-grid-tile>
+            </mat-grid-list>-->
+            <mat-tab-group mat-align-tabs="center" >
+                <mat-tab [label]="classRooms[classRoomModel].timeTable[hour].hour" *ngFor="let hour of hoursModel">
+                    <mat-list role="list">
+                        <div class="alert-warning" *ngIf="classRooms[classRoomModel].timeTable[hour].students.length > 8">
+                            <strong>
+                                Atención!!! Número Alumnos - {{classRooms[classRoomModel].timeTable[hour].students.length}}
+                            </strong>
+                        </div>
+                        <mat-list-item role="listitem" *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students"
+                        >
+                            {{student}}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-tab>
+    </mat-tab-group>
 </div>
 

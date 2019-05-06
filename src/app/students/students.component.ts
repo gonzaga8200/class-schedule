@@ -2,11 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SubjectsService} from '../subjects.service';
 import {FormControl, NgForm} from '@angular/forms';
 import {StudentModel} from '../models/StudentModel';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SubjectModel} from '../models/SubjectModel';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/internal/operators';
 import {TimeTableClassesModel} from '../models/TimeTableClassesModel';
+import {MatSnackBar} from '@angular/material';
 
 export interface Course {
     value: string;
@@ -51,9 +49,17 @@ export class StudentsComponent implements OnInit {
       '6' : [1, 1, 1, 1, 1, 1],
   };
 
-  constructor(private subjectsService: SubjectsService) {
+  durationInSeconds = 6;
+
+  constructor(private subjectsService: SubjectsService, private snackBar: MatSnackBar) {
 
   }
+
+    openSnackBar(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 2000,
+        });
+    }
 
 
 
@@ -123,6 +129,9 @@ export class StudentsComponent implements OnInit {
 
       this.signUpForm.reset();
 
+      this.openSnackBar('Alumno Añadido', newStudent.name);
+
   }
 
 }
+

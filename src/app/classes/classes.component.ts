@@ -27,12 +27,9 @@ export class ClassesComponent {
                       .subscribe(
                           students => {
                               Object.keys(students).forEach(student => {
-                                  console.log(this.classRooms);
-                                  console.log(students[student].timeTable);
                                   Object.keys(students[student].timeTable).forEach(studentHour => {
                                       const classRoom = students[student].timeTable[studentHour];
                                       this.classRooms[classRoom].timeTable[studentHour].students.push(students[student].name);
-                                      console.log(this.classRooms[classRoom].timeTable[studentHour].students);
                                   });
                               });
                           }
