@@ -29,7 +29,14 @@ export class ClassesComponent {
                               Object.keys(students).forEach(student => {
                                   Object.keys(students[student].timeTable).forEach(studentHour => {
                                       const classRoom = students[student].timeTable[studentHour];
-                                      this.classRooms[classRoom].timeTable[studentHour].students.push(students[student].name);
+                                      const infoStudent = {}
+                                      //this.classRooms[classRoom].timeTable[studentHour].students.push(students[student].name);
+                                      this.classRooms[classRoom].timeTable[studentHour].students.push(
+                                          {
+                                              'name': students[student].name,
+                                              'key': student
+                                          }
+                                      );
                                   });
                               });
                           }
