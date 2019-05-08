@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-    MatAutocompleteModule, MatCardModule, MatExpansionModule,
+    MatAutocompleteModule, MatCardModule, MatDialogModule, MatExpansionModule,
     MatFormFieldModule,
     MatGridList,
     MatGridListModule,
@@ -20,6 +20,10 @@ import {
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ShowStudentsComponent } from './show-students/show-students.component';
 import { SubjectsSelectionComponent } from './students/subjects-selection/subjects-selection.component';
+import { TimetableStudentComponent } from './classes/timetable-student/timetable-student.component';
+import {TimetableFormComponent} from './classes/timetable-student/timetable-form/timetable-form.component';
+
+;
 
 @NgModule({
   declarations: [
@@ -28,7 +32,9 @@ import { SubjectsSelectionComponent } from './students/subjects-selection/subjec
     StudentsComponent,
     ClassesComponent,
     ShowStudentsComponent,
-    SubjectsSelectionComponent
+    SubjectsSelectionComponent,
+    TimetableStudentComponent,
+    TimetableFormComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,8 @@ import { SubjectsSelectionComponent } from './students/subjects-selection/subjec
       MatExpansionModule,
       MatSnackBarModule,
       MatListModule,
-      MatCardModule
+      MatCardModule,
+      MatDialogModule
   ],
   exports: [
     BrowserModule,
@@ -59,6 +66,7 @@ import { SubjectsSelectionComponent } from './students/subjects-selection/subjec
     MatInputModule,
     BrowserAnimationsModule
   ],
+  entryComponents: [TimetableStudentComponent],
   providers: [
 
   ],

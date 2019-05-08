@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ClassRoomService} from '../services/class-room.service';
 import {SubjectsService} from '../subjects.service';
+import {MatDialog} from '@angular/material';
+import {TimetableStudentComponent} from './timetable-student/timetable-student.component';
+import {StudentsService} from '../services/students.service';
 
 @Component({
   selector: 'app-classes',
@@ -12,8 +15,12 @@ export class ClassesComponent {
   classRooms;
   classRoomsModel = ['sciences', 'literature', 'languages', 'extra', 'work'];
   hoursModel = ['firstHour', 'secondHour', 'thirdHour', 'fourthHour', 'fifthHour', 'sixthHour'];
+  name;
 
-  constructor(private classRoomService: ClassRoomService, private subjectsService: SubjectsService) {
+  constructor(private classRoomService: ClassRoomService,
+              private subjectsService: SubjectsService,
+              public dialog: MatDialog,
+              private studentsService: StudentsService) {
       this.classRoomService.getClassRooms()
           .subscribe(
               response => {
@@ -29,8 +36,8 @@ export class ClassesComponent {
                               Object.keys(students).forEach(student => {
                                   Object.keys(students[student].timeTable).forEach(studentHour => {
                                       const classRoom = students[student].timeTable[studentHour];
-                                      const infoStudent = {}
-                                      //this.classRooms[classRoom].timeTable[studentHour].students.push(students[student].name);
+                                      const infoStudent = {};
+                                      // this.classRooms[classRoom].timeTable[studentHour].students.push(students[student].name);
                                       this.classRooms[classRoom].timeTable[studentHour].students.push(
                                           {
                                               'name': students[student].name,
@@ -45,5 +52,24 @@ export class ClassesComponent {
           );
   }
 
+    openStudent(student: any): void {
+        this.studentsService.getStudent(student)
+            .subscribe(
+                studentInfo => {
+                    console.log(studentInfo);
 
+                    const dialogRef = this.dialog.open(TimetableStudentComponent, {
+                        width: '250px',
+                        data: studentInfo
+                    });
+                    dialogRef.afterClosed().subscribe(result => {
+                        console.log('The dialog was closed');
+                        // this.animal = result;
+                    });
+                }
+            );
+
+
+
+    }
 }
