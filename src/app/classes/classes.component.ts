@@ -60,7 +60,10 @@ export class ClassesComponent {
 
                     const dialogRef = this.dialog.open(TimetableStudentComponent, {
                         width: '250px',
-                        data: studentInfo
+                        data: {
+                            'studentInfo': studentInfo,
+                            'infoClass': this.classRooms
+                        }
                     });
                     dialogRef.afterClosed().subscribe(result => {
                         console.log('The dialog was closed');

@@ -1,3 +1,16 @@
-<p>
-  timetable-form works!
-</p>
+<div class="container container-fluid">
+  <form #f="ngForm" (submit)="onSubmit()">
+    <div class="form-group" *ngFor="let hourStudent of hoursStudent">
+      <label class="alert-info">{{hourStudent.hour}}</label>
+      <input
+              type="text"
+              class="form-control"
+              [id]="hourStudent.classRoom"
+              required
+              [name]="hourStudent.classRoom"
+              [(ngModel)]="hourStudent.classRoom"
+              autocomplete="off"
+              placeholder="Escribe el nombre del alumno a ingresar">
+    </div>
+  </form>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-timetable-form',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./timetable-form.component.sass']
 })
 export class TimetableFormComponent implements OnInit {
+
+  @Input() hoursStudent;
 
   constructor() { }
 

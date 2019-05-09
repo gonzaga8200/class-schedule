@@ -9,13 +9,23 @@ import {StudentModel} from '../../models/StudentModel';
 })
 export class TimetableStudentComponent  {
 
+    timeTableStudentRepresentationForm = [];
+
     constructor(
         public dialogRef: MatDialogRef<TimetableStudentComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: StudentModel) {
+        @Inject(MAT_DIALOG_DATA) public data: object) {
             const dataResult = data;
-            Object.keys(dataResult.timeTable).forEach(key => {
-                console.log(key);
+            console.log(dataResult);
+            Object.keys(dataResult.studentInfo.timeTable).forEach(key => {
+                console.log(dataResult.studentInfo.timeTable[key]);
+                this.timeTableStudentRepresentationForm.push(
+                    {
+                        'hour': dataResult.infoClass[dataResult.studentInfo.timeTable[key]].timeTable[key].hour,
+                        'classRoom': dataResult.infoClass[dataResult.studentInfo.timeTable[key]].name
+                    }
+                );
             });
+            console.log(this.timeTableStudentRepresentationForm);
 
     }
 
