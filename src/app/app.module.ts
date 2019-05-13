@@ -53,7 +53,8 @@ import {TimetableFormComponent} from './classes/timetable-student/timetable-form
       MatSnackBarModule,
       MatListModule,
       MatCardModule,
-      MatDialogModule
+      MatDialogModule,
+      MatSelectModule
   ],
   exports: [
     BrowserModule,

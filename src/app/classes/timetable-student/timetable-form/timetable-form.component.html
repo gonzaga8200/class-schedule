@@ -1,16 +1,19 @@
 <div class="container container-fluid">
-  <form #f="ngForm" (submit)="onSubmit()">
-    <div class="form-group" *ngFor="let hourStudent of hoursStudent">
-      <label class="alert-info">{{hourStudent.hour}}</label>
-      <input
-              type="text"
-              class="form-control"
-              [id]="hourStudent.classRoom"
-              required
-              [name]="hourStudent.classRoom"
-              [(ngModel)]="hourStudent.classRoom"
-              autocomplete="off"
-              placeholder="Escribe el nombre del alumno a ingresar">
+  <form #f="ngForm" (submit)="onSubmit()" >
+    <div class="form-group-row" *ngFor="let hourStudent of hoursStudent ">
+      <label class="col-sm-4 col-form-label">{{hourStudent.hour}}</label>
+      <mat-form-field class="col-sm-6">
+        <mat-select
+                [(value)]="hourStudent.classRoomKeyStudent"
+                >
+          <mat-option>None</mat-option>
+          <mat-option value="extra">Ampliación</mat-option>
+          <mat-option value="languages">Idiomas</mat-option>
+          <mat-option value="sciences">Ciencias</mat-option>
+          <mat-option value="literature">Letras</mat-option>
+          <mat-option value="work">Trabajo</mat-option>
+        </mat-select>
+    </mat-form-field>
     </div>
   </form>
 </div>

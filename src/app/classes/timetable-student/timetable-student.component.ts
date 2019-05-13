@@ -1,6 +1,5 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {StudentModel} from '../../models/StudentModel';
 
 @Component({
   selector: 'app-timetable-student',
@@ -10,10 +9,11 @@ import {StudentModel} from '../../models/StudentModel';
 export class TimetableStudentComponent  {
 
     timeTableStudentRepresentationForm = [];
+    selected;
 
     constructor(
         public dialogRef: MatDialogRef<TimetableStudentComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: object) {
+        @Inject(MAT_DIALOG_DATA) public data: any) {
             const dataResult = data;
             console.log(dataResult);
             Object.keys(dataResult.studentInfo.timeTable).forEach(key => {
@@ -21,7 +21,10 @@ export class TimetableStudentComponent  {
                 this.timeTableStudentRepresentationForm.push(
                     {
                         'hour': dataResult.infoClass[dataResult.studentInfo.timeTable[key]].timeTable[key].hour,
-                        'classRoom': dataResult.infoClass[dataResult.studentInfo.timeTable[key]].name
+                        'classRoom': dataResult.infoClass[dataResult.studentInfo.timeTable[key]].name,
+                        'classRoomKeyStudent': dataResult.studentInfo.timeTable[key],
+                        'hourKeyStudent': key,
+                        'keyStudent': dataResult.keyStudent
                     }
                 );
             });
@@ -30,7 +33,9 @@ export class TimetableStudentComponent  {
     }
 
     onNoClick(): void {
+        console.log('click en .... que será ')
         this.dialogRef.close();
+
     }
 
 }

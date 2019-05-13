@@ -14,7 +14,7 @@ export class ClassesComponent {
 
   classRooms;
   classRoomsModel = ['sciences', 'literature', 'languages', 'extra', 'work'];
-  hoursModel = ['firstHour', 'secondHour', 'thirdHour', 'fourthHour', 'fifthHour', 'sixthHour'];
+  hoursModel = ['0', '1', '2', '3', '4', '5'];
   name;
 
   constructor(private classRoomService: ClassRoomService,
@@ -36,8 +36,6 @@ export class ClassesComponent {
                               Object.keys(students).forEach(student => {
                                   Object.keys(students[student].timeTable).forEach(studentHour => {
                                       const classRoom = students[student].timeTable[studentHour];
-                                      const infoStudent = {};
-                                      // this.classRooms[classRoom].timeTable[studentHour].students.push(students[student].name);
                                       this.classRooms[classRoom].timeTable[studentHour].students.push(
                                           {
                                               'name': students[student].name,
@@ -59,10 +57,11 @@ export class ClassesComponent {
                     console.log(studentInfo);
 
                     const dialogRef = this.dialog.open(TimetableStudentComponent, {
-                        width: '250px',
+                        width: '500px',
                         data: {
                             'studentInfo': studentInfo,
-                            'infoClass': this.classRooms
+                            'infoClass': this.classRooms,
+                            'keyStudent': student
                         }
                     });
                     dialogRef.afterClosed().subscribe(result => {

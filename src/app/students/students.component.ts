@@ -39,7 +39,7 @@ export class StudentsComponent implements OnInit {
         {value: 'pmar2', viewValue: 'PMAR 2'},
         {value: 'aulaEnlace', viewValue: 'Aula de Enlace'}
     ];
-  timeTableHours = ['firstHour', 'secondHour', 'thirdHour', 'fourthHour', 'fifthHour', 'sixthHour'];
+
   conversionClassRoomHours = {
       '1' : [6],
       '2' : [3, 3],
@@ -101,14 +101,14 @@ export class StudentsComponent implements OnInit {
           }
       });
       const classVariation = studentClassRoomsRepresentation.length;
-      const studentTimeTable = new TimeTableClassesModel('', '', '3',
+      const studentTimeTable = new TimeTableClassesModel('', '', '',
           '', '', '');
 
       let advanceClassRoom = 0;
       let advanceInTimeTable = 0;
       for (let i = 0; i < this.conversionClassRoomHours[classVariation].length; i++) {
          for (let j = 0; j < this.conversionClassRoomHours[classVariation][i] ; j++) {
-            studentTimeTable[this.timeTableHours[advanceInTimeTable]] = studentClassRoomsRepresentation[advanceClassRoom];
+            studentTimeTable[advanceInTimeTable] = studentClassRoomsRepresentation[advanceClassRoom];
             advanceInTimeTable++;
          }
          advanceClassRoom++;

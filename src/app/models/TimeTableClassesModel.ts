@@ -1,7 +1,7 @@
 import {StudentModel} from './StudentModel';
 
 export class TimeTableClassesModel {
-    constructor(public firstHour: StudentModel [] | string,
+    constructor(firstHour: StudentModel [] | string,
                 secondHour: StudentModel [] | string,
                 thirdHour: StudentModel [] | string,
                 fourHour: StudentModel[] | string,
