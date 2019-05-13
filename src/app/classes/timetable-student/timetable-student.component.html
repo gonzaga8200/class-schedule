@@ -1,11 +1,12 @@
 
 <h1 class="mat-h1 h1" mat-dialog-title>Hi {{data.studentInfo.name}}</h1>
+<form #formStudent="ngForm">
 <div mat-dialog-content>
-
-    <div class="container container-fluid">
-
         <div class="form-group-row" *ngFor="let hourStudent of timeTableStudentRepresentationForm ">
-            <label class="col-sm-4 col-form-label">{{hourStudent.hour}}</label>
+            <input type="text"
+                   readonly class="col-sm-4 col-form-label"
+                   [(ngModel)]="hourStudent.hour"
+                    [name]="hourStudent.keyStudent+hourStudent.hourKeyStudent">
             <mat-form-field class="col-sm-6">
                 <mat-select
                         [(value)]="hourStudent.classRoomKeyStudent"
@@ -19,13 +20,16 @@
                 </mat-select>
             </mat-form-field>
         </div>
+</div>
+<div mat-dialog-actions class="form-group-row">
+  <div class="col-sm-5">
+      <button class="btn btn-primary" mat-button (click)="onNoClick()">No Thanks</button>
+  </div>
+     <div class="col-sm-5">
+        <button class="btn btn-primary" mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
     </div>
-
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data.name" cdkFocusInitial>Ok</button>
-</div>
+</form>
 
 
 

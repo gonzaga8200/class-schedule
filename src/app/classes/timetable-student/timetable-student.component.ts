@@ -1,5 +1,6 @@
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-timetable-student',
@@ -10,6 +11,7 @@ export class TimetableStudentComponent  {
 
     timeTableStudentRepresentationForm = [];
     selected;
+    @ViewChild('formStudent') studentForm: NgForm
 
     constructor(
         public dialogRef: MatDialogRef<TimetableStudentComponent>,
@@ -33,7 +35,8 @@ export class TimetableStudentComponent  {
     }
 
     onNoClick(): void {
-        console.log('click en .... que será ')
+        console.log('click en .... que será ');
+        console.log(this.studentForm);
         this.dialogRef.close();
 
     }
