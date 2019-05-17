@@ -16,9 +16,9 @@ export class StudentsService {
     return this.http.get(this.urlStudents + studentKey + '.json');
   }
 
-  setStudentTimeTableHour (studentKey: string, hour: string, classRoom: string) {
-    const pathToTimeTable = this.urlStudents + '/' + studentKey + '/timeTable/' + hour;
-    return this.http.put(pathToTimeTable, classRoom);
+  setStudentTimeTable (studentKey: string, timeTable: string[]) {
+    const pathToTimeTable = this.urlStudents + '/' + studentKey + '/timeTable.json';
+    return this.http.put(pathToTimeTable, timeTable);
   }
 
 

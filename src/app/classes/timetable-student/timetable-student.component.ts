@@ -1,21 +1,25 @@
-import {Component, Inject, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {NgForm} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {TimeTableClassesModel} from '../../models/TimeTableClassesModel';
+import {ClassRoomService} from '../../services/class-room.service';
+import {StudentsService} from '../../services/students.service';
 
 @Component({
   selector: 'app-timetable-student',
   templateUrl: './timetable-student.component.html',
   styleUrls: ['./timetable-student.component.sass']
 })
-export class TimetableStudentComponent  {
+export class TimetableStudentComponent implements OnInit {
+
 
     timeTableStudentRepresentationForm = [];
     selected;
-    @ViewChild('formStudent') studentForm: NgForm
+    studentForm: FormGroup;
 
     constructor(
         public dialogRef: MatDialogRef<TimetableStudentComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
+        @Inject(MAT_DIALOG_DATA) public data: any, public studentService: StudentsService) {
             const dataResult = data;
             console.log(dataResult);
             Object.keys(dataResult.studentInfo.timeTable).forEach(key => {
@@ -34,11 +38,42 @@ export class TimetableStudentComponent  {
 
     }
 
+
+
     onNoClick(): void {
         console.log('click en .... que será ');
-        console.log(this.studentForm);
+        console.log(this.studentForm.value);
+        this.updateTimetableStudent(this.studentForm.value.keyStudent);
         this.dialogRef.close();
 
+    }
+
+    onSubmit() {
+        console.log('click en .... que será ');
+        console.log(this.studentForm.value);
+        this.updateTimetableStudent(this.studentForm.value.keyStudent);
+        this.dialogRef.close();
+    }
+
+    updateTimetableStudent(keyStudent: string) {
+        this.studentService.setStudentTimeTable(keyStudent, this.studentForm.get('classRooms').value)
+            .subscribe(
+                response => console.log(response),
+                       error => console.log(error)
+            );
+    }
+
+    ngOnInit() {
+        this.studentForm = new FormGroup({
+            'keyStudent' : new FormControl(this.data.keyStudent),
+            'classRooms': new FormArray([])
+        });
+        for (let i = 0; i < this.timeTableStudentRepresentationForm.length; i++) {
+            const classRoom = new FormControl(this.timeTableStudentRepresentationForm[i].classRoomKeyStudent);
+            (<FormArray>this.studentForm.get('classRooms')).push(classRoom);
+        }
+
+        console.log(this.studentForm.get('classRooms').value);
     }
 
 }
