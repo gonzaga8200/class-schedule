@@ -6,14 +6,14 @@ import {StudentModel} from './models/StudentModel';
   providedIn: 'root'
 })
 export class SubjectsService {
-  urlSubjects =  'https://class-schedule-fd50c.firebaseio.com/subjects.json';
+  urlSubjects =  'https://class-schedule-fd50c.firebaseio.com/subjects';
   urlStudents =  'https://class-schedule-fd50c.firebaseio.com/students.json';
 
   constructor(private http: HttpClient) { }
 
   getSubjectsForJson() {
 
-      return this.http.get(this.urlSubjects);
+      return this.http.get(this.urlSubjects + '.json');
 
   }
 
@@ -23,5 +23,9 @@ export class SubjectsService {
 
   addNewStudent(student: StudentModel) {
       return this.http.post(this.urlStudents, student);
+  }
+
+  addNewSubject (keySubject: string, subjectInfo: {'name': string, 'associatedClass': string, 'date': Date, 'course': string }) {
+      return this.http.put(this.urlSubjects + '/' + keySubject + '.json', subjectInfo);
   }
 }

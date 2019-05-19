@@ -1,38 +1,40 @@
-
-<h1 class="mat-h1 h1" mat-dialog-title>Hi {{data.studentInfo.name}}</h1>
-<form [formGroup]="studentForm" (submit)="onSubmit()">
-    <input type="hidden" [formControlName]="keyStudent">
-<div mat-dialog-content>
-        <div class="form-group-row" *ngFor="let classRoom of studentForm.get('classRooms').controls; let i = index" formArrayName="classRooms" >
-            {{classRoom.value.classRoomKeyStudent}}
-            <label
-                    class="col-sm-4 col-form-label"
-            >
-                {{timeTableStudentRepresentationForm[i].hour}}
-            </label>
-            <mat-form-field class="col-sm-6" >
-                <mat-select [formControlName]="i"
-                        [(value)]="classRoom.value.classRoomKeyStudent"
+<div class="container">
+    <h6 class="h6 text-center" mat-dialog-title>Horario para {{data.studentInfo.name}}</h6>
+    <form [formGroup]="studentForm" (submit)="onSubmit()" class="text-center align-content-center">
+        <input type="hidden" [formControlName]="keyStudent">
+        <div mat-dialog-content>
+            <div class="form-group-row" *ngFor="let classRoom of studentForm.get('classRooms').controls; let i = index" formArrayName="classRooms" >
+                {{classRoom.value.classRoomKeyStudent}}
+                <label
+                        class="col-sm-4 col-form-label text-center"
                 >
-                    <mat-option>None</mat-option>
-                    <mat-option value="extra">Ampliación</mat-option>
-                    <mat-option value="languages">Idiomas</mat-option>
-                    <mat-option value="sciences">Ciencias</mat-option>
-                    <mat-option value="literature">Letras</mat-option>
-                    <mat-option value="work">Trabajo</mat-option>
-                </mat-select>
-            </mat-form-field>
+                    {{timeTableStudentRepresentationForm[i].hour}}
+                </label>
+                <mat-form-field class="col-sm-6 text-center align-content-center" >
+                    <mat-select [formControlName]="i" class="text-center"
+                                [(value)]="classRoom.value.classRoomKeyStudent"
+                    >
+                        <mat-option>None</mat-option>
+                        <mat-option value="extra">Ampliación</mat-option>
+                        <mat-option value="languages">Idiomas</mat-option>
+                        <mat-option value="sciences">Ciencias</mat-option>
+                        <mat-option value="literature">Letras</mat-option>
+                        <mat-option value="work">Trabajo</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
+        <div mat-dialog-actions class="form-group-row">
+            <div class="col-sm-5">
+                <button class="btn btn-secondary" mat-button (click)="onNoClick()">Cerrar</button>
+            </div>
+            <div class="col-sm-5">
+                <button type="submit" class="btn btn-primary" mat-button cdkFocusInitial>Actualizar Horario</button>
+            </div>
+        </div>
+    </form>
+
 </div>
-<div mat-dialog-actions class="form-group-row">
-  <div class="col-sm-5">
-      <button class="btn btn-primary" mat-button (click)="onNoClick()">No Thanks</button>
-  </div>
-     <div class="col-sm-5">
-        <button type="submit" class="btn btn-primary" mat-button cdkFocusInitial>Ok</button>
-    </div>
-</div>
-</form>
 
 
 

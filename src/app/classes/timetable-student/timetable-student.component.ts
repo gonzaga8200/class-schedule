@@ -1,8 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormArray, FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {TimeTableClassesModel} from '../../models/TimeTableClassesModel';
-import {ClassRoomService} from '../../services/class-room.service';
 import {StudentsService} from '../../services/students.service';
 
 @Component({
@@ -14,7 +12,6 @@ export class TimetableStudentComponent implements OnInit {
 
 
     timeTableStudentRepresentationForm = [];
-    selected;
     studentForm: FormGroup;
 
     constructor(
@@ -41,15 +38,12 @@ export class TimetableStudentComponent implements OnInit {
 
 
     onNoClick(): void {
-        console.log('click en .... que será ');
-        console.log(this.studentForm.value);
-        this.updateTimetableStudent(this.studentForm.value.keyStudent);
+        console.log('No hacer nada');
         this.dialogRef.close();
 
     }
 
     onSubmit() {
-        console.log('click en .... que será ');
         console.log(this.studentForm.value);
         this.updateTimetableStudent(this.studentForm.value.keyStudent);
         this.dialogRef.close();

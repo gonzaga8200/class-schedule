@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="col-sm-12 text-center">
+    <!--<form [formGroup]="subjectForm" (submit)="onSubmit()"r>-->
+    <form [formGroup]="subjectForm" (submit)="onSubmit()">
+        <div class="form-group">
+          <div >
+
+          </div>
+          <label class="col-form-label col-sm-6" >
+            Código Asignatura
+          </label>
+          <mat-form-field class="col-sm-6" >
+            <input matInput type="text"
+                   id="keySubject"
+                   placeholder="Introduce el código de la Asignatura"
+                   [formControlName]="'keySubject'"
+            >
+          </mat-form-field>
+        </div>
+        <!--<div class="form-group">
+          <label for="username">Username</label>
+          <input
+                  type="text"
+                  id="username"
+                  formControlName="username"
+                  class="form-control">
+          <span *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"
+                class="help-block">Please Enter a valid username!!</span>
+        </div>-->
+
+
+      <div formGroupName="subjectInfo">
+        <div class="form-group">
+          <label class="col-form-label col-sm-6" >
+            Nombre
+          </label>
+          <mat-form-field class="col-sm-6" >
+            <input matInput
+                   placeholder="Introduce el nombre de la asignatura"
+                   formControlName="name"
+            >
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label class="col-form-label col-sm-6" >
+            Curso Asignatura
+          </label>
+          <mat-form-field class="col-sm-6">
+            <mat-label>Selecciona el curso de la Asignatura</mat-label>
+            <mat-select
+                    formControlName="course"
+            >
+              <mat-option *ngFor="let course of courses" [value]="course.value" >
+                {{course.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <label class="col-form-label col-sm-6" >
+            Clase Asociada
+          </label>
+          <mat-form-field class="col-sm-6" >
+            <mat-select formControlName="associatedClass"
+            >
+              <mat-option>None</mat-option>
+              <mat-option value="extra">Ampliación</mat-option>
+              <mat-option value="languages">Idiomas</mat-option>
+              <mat-option value="sciences">Ciencias</mat-option>
+              <mat-option value="literature">Letras</mat-option>
+              <mat-option value="work">Trabajo</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label class="col-form-label col-sm-6" >
+            Fecha
+          </label>
+          <mat-form-field class="col-sm-6">
+            <input matInput [matDatepicker]="picker"
+                   formControlName="date"
+                   placeholder="Fecha del Examen">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!subjectForm.valid">Añadir Asignatura</button>
+    </form>
+  </div>
+
+</div>
+
+
