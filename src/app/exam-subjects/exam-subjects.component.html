@@ -1,0 +1,14 @@
+<div class="container">
+    <div *ngFor="let dateSubject of datesSubjects | async">
+        <div class="col-sm-12 align-content-center">
+            <h1 class="h3">Exámenes del {{dateSubject | date}}</h1>
+            <app-subjects-in-date [dateForSubjects]="dateSubject"></app-subjects-in-date>
+            <div class="col-sm-12">
+                <button class="btn btn-primary" type="button">Eliminar Asignaturas de Alumnos</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

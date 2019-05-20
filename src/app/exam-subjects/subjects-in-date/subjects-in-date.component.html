@@ -1,0 +1,6 @@
+<mat-list role="list" class="col-sm-12">
+  <mat-list-item role="listitem" *ngFor="let subject of subjects | async">
+    <p class="text-center">{{subject.name}}</p>
+
+  </mat-list-item>
+</mat-list>

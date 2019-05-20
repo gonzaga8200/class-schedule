@@ -23,6 +23,8 @@ import { SubjectsSelectionComponent } from './students/subjects-selection/subjec
 import { TimetableStudentComponent } from './classes/timetable-student/timetable-student.component';
 import {TimetableFormComponent} from './classes/timetable-student/timetable-form/timetable-form.component';
 import { SubjectsManagmentComponent } from './subjects-managment/subjects-managment.component';
+import { ExamSubjectsComponent } from './exam-subjects/exam-subjects.component';
+import { SubjectsInDateComponent } from './exam-subjects/subjects-in-date/subjects-in-date.component';
 
 ;
 
@@ -36,7 +38,9 @@ import { SubjectsManagmentComponent } from './subjects-managment/subjects-managm
     SubjectsSelectionComponent,
     TimetableStudentComponent,
     TimetableFormComponent,
-    SubjectsManagmentComponent
+    SubjectsManagmentComponent,
+    ExamSubjectsComponent,
+    SubjectsInDateComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import { SubjectsManagmentComponent } from './subjects-managment/subjects-managm
       MatSelectModule,
       ReactiveFormsModule,
       MatDatepickerModule,
-      MatNativeDateModule
+      MatNativeDateModule,
+      MatListModule
   ],
   exports: [
     BrowserModule,
