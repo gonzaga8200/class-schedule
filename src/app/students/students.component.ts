@@ -70,8 +70,9 @@ export class StudentsComponent implements OnInit {
               this.subjectsRepresentation = response;
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  this.subjectsInDataBase[value.course].push(new SubjectModel(key, value.name, value.associatedClass, value.course));
+                  this.subjectsInDataBase[value.course].push(new SubjectModel(key, value.name, value.associatedClass, value.course, value.date));
               });
+              console.log(this.subjectsRepresentation);
           }
       );
       this.subjectsService.getStudents().
@@ -91,12 +92,13 @@ export class StudentsComponent implements OnInit {
       const studentClassRoomsRepresentation = [];
       Object.keys(this.signUpForm.value.subjectsData).forEach(key => {
           const value = this.signUpForm.value.subjectsData[key];
+          console.log(this.signUpForm.value.subjectsData[key]);
           const subjectRepresentation = this.subjectsRepresentation[key];
           if (value) {
               if (!studentClassRoomsRepresentation.includes(subjectRepresentation.associatedClass)) {
                   studentClassRoomsRepresentation.push(subjectRepresentation.associatedClass);
               }
-              const subject = new SubjectModel(key, subjectRepresentation.name, subjectRepresentation.associatedClass, subjectRepresentation.course);
+              const subject = new SubjectModel(key, subjectRepresentation.name, subjectRepresentation.associatedClass, subjectRepresentation.course, subjectRepresentation.date);
               subjects.push(subject);
           }
       });
@@ -116,9 +118,10 @@ export class StudentsComponent implements OnInit {
 
       Object.keys(studentTimeTable).forEach(key => {
 
-      })
+      });
 
 
+      console.log(subjects)  ;
       const newStudent = new StudentModel (this.signUpForm.value.student, subjects, this.signUpForm.value.courseStudent, studentTimeTable);
       this.subjectsService.addNewStudent (newStudent).
         subscribe(
