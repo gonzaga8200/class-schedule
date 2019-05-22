@@ -132,9 +132,10 @@ export class SubjectsService {
                             delete students[student].subjects[subject];
                         }
                     });
-                    const classRoomsFromSubjects = this.getStudentClassRoomsFromSubjects(Object.values(students[student].subjects));
+                    const studentSubjects = Object.values(students[student].subjects)
+                    const classRoomsFromSubjects = this.getStudentClassRoomsFromSubjects(studentSubjects);
                     const studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
-                    const studentInfo = new StudentModel(students[student].name, students[student].subjects, students[student].course, studentTimeTable);
+                    const studentInfo = new StudentModel(students[student].name, studentSubjects, students[student].course, studentTimeTable);
                     this.updateStudent(student, studentInfo);
 
                   });
