@@ -1,6 +1,6 @@
 <div class="container">
-    <div *ngFor="let dateSubject of datesSubjects | async">
-        <div class="col-sm-12 align-content-center">
+    <div *ngFor="let dateSubject of datesSubjects | async" class="row">
+        <div class="col-lg-6 offset-lg-3 mt-2 ">
             <h1 class="h3">Exámenes del {{dateSubject | date}}</h1>
             <app-subjects-in-date [dateForSubjects]="dateSubject"></app-subjects-in-date>
             <div class="col-sm-12">

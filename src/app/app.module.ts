@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ClassesComponent } from './classes/classes.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-    MatAutocompleteModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+    MatAutocompleteModule, MatCardModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatExpansionModule,
     MatFormFieldModule,
     MatGridList,
     MatGridListModule,
@@ -64,7 +64,8 @@ import { SubjectsInDateComponent } from './exam-subjects/subjects-in-date/subjec
       ReactiveFormsModule,
       MatDatepickerModule,
       MatNativeDateModule,
-      MatListModule
+      MatListModule,
+      MatDividerModule
   ],
   exports: [
     BrowserModule,

@@ -15,12 +15,10 @@ export class ExamSubjectsComponent implements OnInit {
   constructor(private subjectService: SubjectsService) { }
 
   ngOnInit() {
-    /*const newDate = new Date('2019-05-09T22:00:00.000Z');
-    this.subjects = this.subjectService.getSubjectsForJsonObservable(newDate);*/
     this.datesSubjects = this.subjectService.getDatesSubjects();
   }
 
-  removeStudentsSubject(date: string) {
+  removeStudentsSubject(date: number) {
       this.subjectService.setNewStudentsTimeTable(date);
 
   }

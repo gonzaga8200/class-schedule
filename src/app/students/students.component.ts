@@ -5,6 +5,9 @@ import {StudentModel} from '../models/StudentModel';
 import {SubjectModel} from '../models/SubjectModel';
 import {TimeTableClassesModel} from '../models/TimeTableClassesModel';
 import {MatSnackBar} from '@angular/material';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 export interface Course {
     value: string;
@@ -85,6 +88,28 @@ export class StudentsComponent implements OnInit {
               });
           }
       );
+
+
+
+      /*const data = document.getElementById('test');
+      html2canvas(data).then(canvas => {
+// Few necessary setting options
+          const imgWidth = 208;
+          const pageHeight = 295;
+          const imgHeight = canvas.height * imgWidth / canvas.width;
+          const heightLeft = imgHeight;
+
+          const contentDataURL = canvas.toDataURL('image/png')
+          const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+          const position = 0;
+          pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+          pdf.save('MYPdf.pdf'); // Generated PDF
+      });*/
+
+      /*var doc = new jspdf()
+
+      doc.text('<b>Hello world!</b>', 10, 10)
+      doc.save('a4.pdf')*/
   }
 
   onSubmit() {

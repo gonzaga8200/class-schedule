@@ -15,4 +15,8 @@ export class StudentModel {
     getSubjects() {
         return this.subjects;
     }
+
+    getTimeTable() {
+        return this.timeTable;
+    }
 }

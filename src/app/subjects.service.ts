@@ -44,7 +44,7 @@ export class SubjectsService {
                         }
 
                     );
-                    return datesSubject;
+                    return datesSubject.sort();
                 })
             );
     }
@@ -97,7 +97,7 @@ export class SubjectsService {
       let advanceClassRoom = 0;
       let advanceInTimeTable = 0;
       const studentTimeTable = [];
-      for (let i = 0; i < this.conversionClassRoomHours[classVariation].length; i++) {
+      for (let i = 0; classVariation > 0 && i < this.conversionClassRoomHours[classVariation].length; i++) {
           for (let j = 0; j < this.conversionClassRoomHours[classVariation][i] ; j++) {
               studentTimeTable.push(studentClassRooms[advanceClassRoom]);
               advanceInTimeTable++;
@@ -105,13 +105,6 @@ export class SubjectsService {
           advanceClassRoom++;
       }
       return studentTimeTable;
-  }
-
-  private deleteStudentSubject(keyStudent: string, subjectStudent: string) {
-      return this.http.delete(this.urlStudents + '/' + keyStudent + '/subjects/' + subjectStudent + '.json')
-          .subscribe(
-              response => console.log(response)
-          );
   }
 
   private updateStudent(keyStudent: string, studentInfo: StudentModel) {
@@ -126,13 +119,20 @@ export class SubjectsService {
           .subscribe(
               students => {
                   Object.keys(students).forEach(student => {
+                    const studentSubjects: SubjectModel[] = [];
                     Object.keys(students[student].subjects).forEach( subject => {
                         const subjectDate = new Date(students[student].subjects[subject].date);
                         if (subjectDate.getTime() === date) {
                             delete students[student].subjects[subject];
+                        } else {
+                            const newSubject = new SubjectModel(students[student].subjects[subject].idSubject,
+                                students[student].subjects[subject].name,
+                                students[student].subjects[subject].associatedClass,
+                                students[student].subjects[subject].course,
+                                students[student].subjects[subject].date);
+                                studentSubjects.push(newSubject);
                         }
                     });
-                    const studentSubjects = Object.values(students[student].subjects)
                     const classRoomsFromSubjects = this.getStudentClassRoomsFromSubjects(studentSubjects);
                     const studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
                     const studentInfo = new StudentModel(students[student].name, studentSubjects, students[student].course, studentTimeTable);

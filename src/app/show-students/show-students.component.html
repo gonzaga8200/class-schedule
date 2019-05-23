@@ -10,26 +10,27 @@
             {{ student.name }}
           </mat-option>
         </mat-autocomplete>
-        <table class="table table-hover">
+        <table class="table table-hover" id="studentTimeTable">
           <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Asignatura</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Clase</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor = "let subject of subjects; let i = index">
+          <tr *ngFor = "let hour of timeTable; let i = index">
             <th scope="row">{{i + 1}}</th>
-            <td>{{subject.name}}</td>
+            <td>{{hour}}</td>
           </tr>
           </tbody>
         </table>
+          <button *ngIf="timeTable.length > 0" (click)="downloadPdf()">Descargar2 Horario Alumno</button>
 
 
       </form>
     </mat-tab>
     <mat-tab label="Listado de Alumnos">
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
             <tr>
                 <th scope="col">#</th>
