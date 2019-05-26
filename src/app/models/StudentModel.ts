@@ -19,4 +19,8 @@ export class StudentModel {
     getTimeTable() {
         return this.timeTable;
     }
+
+    getTimeTableToArray() {
+        return Object.values(this.getTimeTable());
+    }
 }

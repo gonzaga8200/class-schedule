@@ -11,7 +11,7 @@
 
 <div class="container">
     <mat-tab-group mat-align-tabs="center">
-        <mat-tab [label]="classRooms[classRoomModel].name" *ngFor="let classRoomModel of classRoomsModel">
+        <mat-tab [label]="classRooms[classRoomModel]?.name" *ngFor="let classRoomModel of classRoomsModel">
             <!--<mat-grid-list cols="2" >
 
                 <mat-grid-tile

@@ -10,27 +10,31 @@
             {{ student.name }}
           </mat-option>
         </mat-autocomplete>
-        <table class="table table-hover" id="studentTimeTable">
-          <thead>
-          <tr>
-            <th scope="col">Hora</th>
-            <th scope="col">Clase</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor = "let hour of timeTable; let i = index">
-            <th scope="row">{{i + 1}}</th>
-            <td>{{hour}}</td>
-          </tr>
-          </tbody>
-        </table>
-          <button *ngIf="timeTable.length > 0" (click)="downloadPdf()">Descargar2 Horario Alumno</button>
+        <div id="studentTimeTable">
+            <h4  *ngIf="studentName" class="text-center h4">Horario para {{studentName}}</h4>
+            <table class="table table-info table-bordered" style="table-layout: fixed" >
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center">Hora</th>
+                    <th scope="col" class="text-center">Clase</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor = "let classRoom of timeTable; let i = index">
+                    <th scope="row" class="text-center">{{classRoomsSource[classRoom].timeTable[i].hour}}</th>
+                    <td class="text-center">{{classRoomsSource[classRoom].name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button *ngIf="timeTable.length > 0"  class="btn btn-primary download-button" (click)="downloadPdf(studentName, 'studentTimeTable')">Descargar Horario Alumno</button>
+
 
 
       </form>
     </mat-tab>
     <mat-tab label="Listado de Alumnos">
-        <table class="table table-hover" >
+        <!--<table class="table table-hover" >
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -49,8 +53,31 @@
                 </td>
             </tr>
             </tbody>
-        </table>
+        </table>-->
+        <div id="students-timetables">
+            <h4>Horario de todos los estudiante</h4>
+            <div *ngFor = "let student of students; let i = index">
+                <h4 class="h4 text-center">Horario de {{student.getName()}} </h4>
+                <table class="table table-info table-bordered" style="table-layout: fixed"  >
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Hora</th>
+                        <th scope="col" class="text-center">Clase</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor = "let classRoom of student.getTimeTable(); let i = index">
+                        <th scope="row" class="text-center">{{classRoomsSource[classRoom]?.timeTable[i].hour}}</th>
+                        <td class="text-center">{{classRoomsSource[classRoom].name}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <button class="btn btn-primary download-button" (click)="downloadPdf('students-timetables','students-timetables')">Descargar Horario Alumnos</button>
     </mat-tab>
+
   </mat-tab-group>
 </div>
 
