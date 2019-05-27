@@ -7,6 +7,7 @@ import {FormControl} from '@angular/forms';
 import {SubjectModel} from '../models/SubjectModel';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import 'jspdf-autotable';
 import {ClassRoomService} from '../services/class-room.service';
 
 @Component({
@@ -70,6 +71,29 @@ export class ShowStudentsComponent implements OnInit {
              pdf.addPage();
              pdf.save(pdfName); // Generated PDF
          });
+   }
+
+   downloadPdfAllStudents() {
+       const doc = new jspdf('p', 'pt');
+       let i = 0;
+       while (document.getElementById('tt' + i) !== null) {
+           const header = function (data) {
+               doc.setFontSize(18);
+               doc.setTextColor(40);
+               doc.setFontStyle('normal');
+               doc.text(document.getElementById('st' + i).innerHTML, data.settings.margin.left, 50);
+           };
+           doc.autoTable({
+               html: '#tt' + i,
+               margin: {top: 80},
+               didDrawPage: header
+           });
+           doc.addPage();
+           i++;
+
+       }
+
+       doc.save('table.pdf');
    }
 
   ngOnInit() {
