@@ -1,4 +1,4 @@
-<div class="container">
+<!--<div class="container">
     <div *ngFor="let dateSubject of datesSubjects | async" class="row">
         <div class="col-lg-6 offset-lg-3 mt-2 ">
             <h1 class="h3">Exámenes del {{dateSubject | date}}</h1>
@@ -8,5 +8,14 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab [label]="dateSubject | date" *ngFor="let dateSubject of datesSubjects | async">
+        <div class="col-lg-6 offset-lg-3 mt-2 ">
+
+        </div>
+        <app-subjects-in-date [dateForSubjects]="dateSubject"></app-subjects-in-date>
+        <button class="btn btn-primary" (click)="removeStudentsSubject(dateSubject)" type="button">Eliminar Asignaturas de Alumnos</button>
+    </mat-tab>
+</mat-tab-group>
 
