@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 import {catchError, tap} from 'rxjs/internal/operators';
 import {SubjectModel} from './models/SubjectModel';
+import {StudentsService} from './services/students.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class SubjectsService {
         '6' : [1, 1, 1, 1, 1, 1],
     };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private studentService: StudentsService) { }
 
   getSubjectsForJson() {
 
@@ -120,23 +121,22 @@ export class SubjectsService {
               students => {
                   Object.keys(students).forEach(student => {
                     const studentSubjects: SubjectModel[] = [];
-                    Object.keys(students[student].subjects).forEach( subject => {
-                        const subjectDate = new Date(students[student].subjects[subject].date);
-                        if (subjectDate.getTime() === date) {
-                            delete students[student].subjects[subject];
-                        } else {
-                            const newSubject = new SubjectModel(students[student].subjects[subject].idSubject,
-                                students[student].subjects[subject].name,
-                                students[student].subjects[subject].associatedClass,
-                                students[student].subjects[subject].course,
-                                students[student].subjects[subject].date);
-                                studentSubjects.push(newSubject);
+                    for (const subject of students[student].subjects) {
+                        const subjectDate = new Date(subject.date);
+                        if (subjectDate.getTime() !== date) {
+                            studentSubjects.push(subject);
                         }
-                    });
-                    const classRoomsFromSubjects = this.getStudentClassRoomsFromSubjects(studentSubjects);
-                    const studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
-                    const studentInfo = new StudentModel(students[student].name, studentSubjects, students[student].course, studentTimeTable);
-                    this.updateStudent(student, studentInfo);
+                    }
+                    if (studentSubjects.length > 0) {
+                        const classRoomsFromSubjects = this.getStudentClassRoomsFromSubjects(studentSubjects);
+                        const studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
+                        const studentInfo = new StudentModel(students[student].name,
+                            studentSubjects, students[student].course, studentTimeTable);
+                        this.updateStudent(student, studentInfo);
+                    } else {
+                        this.studentService.deleteStudent(student);
+                    }
+
 
                   });
               }
