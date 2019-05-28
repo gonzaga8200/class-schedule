@@ -4,6 +4,9 @@ import {SubjectsService} from '../subjects.service';
 import {MatDialog} from '@angular/material';
 import {TimetableStudentComponent} from './timetable-student/timetable-student.component';
 import {StudentsService} from '../services/students.service';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-classes',
@@ -50,6 +53,20 @@ export class ClassesComponent {
           );
   }
 
+    downloadPdf(pdfName: string, element: string) {
+        const data = document.getElementById(element);
+        html2canvas(data).then(canvas => {
+            // Few necessary setting options
+            const imgWidth = 200;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            const contentDataURL = canvas.toDataURL('image/png')
+            const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+            const position = 5;
+            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+            pdf.addPage();
+            pdf.save(pdfName); // Generated PDF
+        });
+    }
     openStudent(student: any): void {
         this.studentsService.getStudent(student)
             .subscribe(

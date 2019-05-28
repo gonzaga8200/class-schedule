@@ -55,7 +55,6 @@
             </tbody>
         </table>-->
         <div id="students-timetables">
-            <h4>Horario de todos los estudiante</h4>
             <div *ngFor = "let student of students; let i = index">
                 <h4 class="h4 text-center" [id]="'st'+i">Horario de {{student.getName()}} </h4>
                 <table class="table table-info table-bordered" style="table-layout: fixed" [id]="'tt'+i" >

@@ -3,7 +3,7 @@
         <mat-tab [label]="classRooms[classRoomModel]?.name" *ngFor="let classRoomModel of classRoomsModel">
             <mat-tab-group mat-align-tabs="center" >
                 <mat-tab [label]="classRooms[classRoomModel].timeTable[hour].hour" *ngFor="let hour of hoursModel">
-                    <mat-list role="list">
+                    <!--<mat-list role="list">
                         <div class="alert-warning" *ngIf="classRooms[classRoomModel].timeTable[hour].students.length > 8">
                             <strong>
                                 Atención!!! Número Alumnos - {{classRooms[classRoomModel].timeTable[hour].students.length}}
@@ -11,9 +11,22 @@
                         </div>
                         <mat-list-item role="listitem" *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students"
                         >
-                            {{student.name}} <button (click)="openStudent(student.key)">Detalles</button>
+                            {{student.name}}
                         </mat-list-item>
-                    </mat-list>
+                    </mat-list>-->
+                    <table class="table table-success table-bordered" style="table-layout: fixed" id="class-students" >
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Alumnos en clase de {{classRooms[classRoomModel]?.name}} de  {{classRooms[classRoomModel].timeTable[hour].hour}}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students; let i = index">
+                            <th scope="row" class="text-center">{{student.name}}<span class="edit-timetable"><button class="btn btn-primary" (click)="openStudent(student.key)">Editar Horario</button></span></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary download-button" (click)="downloadPdf('class-students','class-students')">Descargar Horario Alumnos</button>
                 </mat-tab>
             </mat-tab-group>
         </mat-tab>

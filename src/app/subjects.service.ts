@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {StudentModel} from './models/StudentModel';
-import {Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
-import {catchError, tap} from 'rxjs/internal/operators';
 import {SubjectModel} from './models/SubjectModel';
 import {StudentsService} from './services/students.service';
 

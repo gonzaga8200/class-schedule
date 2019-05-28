@@ -21,7 +21,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ShowStudentsComponent } from './show-students/show-students.component';
 import { SubjectsSelectionComponent } from './students/subjects-selection/subjects-selection.component';
 import { TimetableStudentComponent } from './classes/timetable-student/timetable-student.component';
-import {TimetableFormComponent} from './classes/timetable-student/timetable-form/timetable-form.component';
 import { SubjectsManagmentComponent } from './subjects-managment/subjects-managment.component';
 import { ExamSubjectsComponent } from './exam-subjects/exam-subjects.component';
 import { SubjectsInDateComponent } from './exam-subjects/subjects-in-date/subjects-in-date.component';
@@ -37,7 +36,6 @@ import { SubjectsInDateComponent } from './exam-subjects/subjects-in-date/subjec
     ShowStudentsComponent,
     SubjectsSelectionComponent,
     TimetableStudentComponent,
-    TimetableFormComponent,
     SubjectsManagmentComponent,
     ExamSubjectsComponent,
     SubjectsInDateComponent
