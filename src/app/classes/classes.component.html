@@ -14,15 +14,24 @@
                             {{student.name}}
                         </mat-list-item>
                     </mat-list>-->
-                    <table class="table table-success table-bordered" style="table-layout: fixed" id="class-students" >
+
+                    <table class="table table-bordered"
+                           [ngClass]="{'table-warning': classRooms[classRoomModel].timeTable[hour].students.length > 32}" style="table-layout: fixed" id="class-students" >
                         <thead>
                         <tr>
-                            <th scope="col" class="text-center">Alumnos en clase de {{classRooms[classRoomModel]?.name}} de  {{classRooms[classRoomModel].timeTable[hour].hour}}</th>
+                            <th scope="col" colspan="4" class="text-center">Alumnos en clase de {{classRooms[classRoomModel]?.name}} de  {{classRooms[classRoomModel].timeTable[hour].hour}}</th>
+                        </tr>
+                        <tr class="text-center">
+                            <td></td><td>Nombre</td><td>Curso</td><td>Falta</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students; let i = index">
-                            <th scope="row" class="text-center">{{student.name}}<span class="edit-timetable"><button class="btn btn-primary" (click)="openStudent(student.key)">Editar Horario</button></span></th>
+                        <tr class="text-center" *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students; let i = index">
+                            <td>#{{i + 1}}</td>
+                            <td scope="row" class="text-center" (click)="openStudent(student.key)"><span class="edit-timetable">{{student.name}}</span></td>
+                            <td>{{student.course}}</td>
+                            <td><input type="checkbox"></td>
+
                         </tr>
                         </tbody>
                     </table>

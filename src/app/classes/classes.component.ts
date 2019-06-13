@@ -42,6 +42,7 @@ export class ClassesComponent {
                                       this.classRooms[classRoom].timeTable[studentHour].students.push(
                                           {
                                               'name': students[student].name,
+                                              'course': students[student].course,
                                               'key': student
                                           }
                                       );
@@ -62,7 +63,7 @@ export class ClassesComponent {
             const contentDataURL = canvas.toDataURL('image/png')
             const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
             const position = 5;
-            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+            pdf.addImage(contentDataURL, 'PNG', 5, position, imgWidth, imgHeight);
             pdf.addPage();
             pdf.save(pdfName); // Generated PDF
         });

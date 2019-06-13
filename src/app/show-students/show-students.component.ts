@@ -75,20 +75,34 @@ export class ShowStudentsComponent implements OnInit {
 
    downloadPdfAllStudents() {
        const doc = new jspdf('p', 'pt');
-       let i = 0;
+       let i = 1;
+       let headerTop = 50;
+       let startTable = 50;
        while (document.getElementById('tt' + i) !== null) {
+
            const header = function (data) {
                doc.setFontSize(18);
                doc.setTextColor(40);
                doc.setFontStyle('normal');
-               doc.text(document.getElementById('st' + i).innerHTML, data.settings.margin.left, 50);
+               doc.text(document.getElementById('st' + i).innerHTML + ' - ' + document.getElementById('course' + i).innerHTML, data.settings.margin.left, headerTop);
            };
            doc.autoTable({
                html: '#tt' + i,
                margin: {top: 80},
+               startY: startTable,
                didDrawPage: header
            });
-           doc.addPage();
+
+           if (i % 3 === 0  ) {
+               doc.addPage();
+               headerTop = 40;
+               startTable = 50;
+           } else {
+               headerTop += 200;
+               startTable += 205;
+           }
+
+
            i++;
 
        }

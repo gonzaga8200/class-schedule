@@ -12,6 +12,9 @@
         </mat-autocomplete>
         <div id="studentTimeTable">
             <h4  *ngIf="studentName" class="text-center h4">Horario para {{studentName}}</h4>
+            <div *ngFor="let subject of subjects; let i = index">
+                #{{i + 1}} - {{subject.name}} - {{subject.course}} - {{subject.associatedClass}}
+            </div>
             <table class="table table-info table-bordered" style="table-layout: fixed" >
                 <thead>
                 <tr>
@@ -56,8 +59,9 @@
         </table>-->
         <div id="students-timetables">
             <div *ngFor = "let student of students; let i = index">
-                <h4 class="h4 text-center" [id]="'st'+i">Horario de {{student.getName()}} </h4>
-                <table class="table table-info table-bordered" style="table-layout: fixed" [id]="'tt'+i" >
+                <h4 class="h4 text-center" [id]="'st'+ (i+1)">Horario de {{student.getName()}} </h4>
+                <h5 class="h5 text-center" [id]="'course'+( i+1)">{{student.course}}</h5>
+                <table class="table table-info table-bordered" style="table-layout: fixed" [id]="'tt'+(i+1)" >
                     <thead>
                     <tr>
                         <th scope="col" class="text-center">Hora</th>
