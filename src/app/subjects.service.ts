@@ -113,27 +113,43 @@ export class SubjectsService {
           );
   }
 
+  private setFlatTimeTableWithClassRoom(classRoom: string) {
+      return Array(6).fill(classRoom);
+
+  }
+
   setNewStudentsTimeTable(date: number) {
+      const extraClassRoom = 'extra';
       this.getStudents()
           .subscribe(
               students => {
+                  const examDate = new Date(date);
+                  const afterExamDate = new Date();
+                  afterExamDate.setDate(examDate.getDate() + 1);
                   Object.keys(students).forEach(student => {
+                    const currentTimeTable = students[student].timeTable;
                     const studentSubjects: SubjectModel[] = [];
-                    for (const subject of students[student].subjects) {
-                        const subjectDate = new Date(subject.date);
-                        if (subjectDate.getTime() !== date) {
-                            studentSubjects.push(subject);
+                    if (students[student].subjects) {
+                        for (const subject of students[student].subjects) {
+                            const subjectDate = new Date(subject.date);
+                            if (subjectDate.getTime() !== date) {
+                                studentSubjects.push(subject);
+                            }
                         }
                     }
+                    let studentTimeTable;
                     if (studentSubjects.length > 0) {
                         const classRoomsFromSubjects = this.getStudentClassRoomsFromSubjects(studentSubjects);
-                        const studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
-                        const studentInfo = new StudentModel(students[student].name,
-                            studentSubjects, students[student].course, studentTimeTable);
-                        this.updateStudent(student, studentInfo);
+                        studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
+
                     } else {
-                        this.studentService.deleteStudent(student);
+                        studentTimeTable = this.setFlatTimeTableWithClassRoom(extraClassRoom);
                     }
+                    const nextDayTimeTable = students[student].nextWeekTimeTable || {};
+                    nextDayTimeTable[afterExamDate.getDate() + '-' + (examDate.getMonth() + 1)] = studentTimeTable;
+                    const studentInfo = new StudentModel(students[student].name,
+                        studentSubjects, students[student].course, currentTimeTable, nextDayTimeTable);
+                    this.updateStudent(student, studentInfo);
 
 
                   });

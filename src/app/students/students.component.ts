@@ -73,7 +73,8 @@ export class StudentsComponent implements OnInit {
               this.subjectsRepresentation = response;
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  this.subjectsInDataBase[value.course].push(new SubjectModel(key, value.name, value.associatedClass, value.course, value.date));
+                  this.subjectsInDataBase[value.course].
+                    push(new SubjectModel(key, value.name, value.associatedClass, value.course, value.date));
               });
               console.log(this.subjectsRepresentation);
           }
@@ -83,7 +84,7 @@ export class StudentsComponent implements OnInit {
           (response) => {
               Object.keys(response).forEach(key => {
                   const value = response[key];
-                  const newStudent = new StudentModel(value.name, value.subjects, value.course, value.timeTable);
+                  const newStudent = new StudentModel(value.name, value.subjects, value.course, value.timeTable, value.nextWeekTimeTable);
                   this.students.push(newStudent);
               });
           }
@@ -147,7 +148,13 @@ export class StudentsComponent implements OnInit {
 
 
       console.log(subjects)  ;
-      const newStudent = new StudentModel (this.signUpForm.value.student, subjects, this.signUpForm.value.courseStudent, studentTimeTable);
+      const newStudent = new StudentModel (this.signUpForm.value.student,
+          subjects,
+          this.signUpForm.value.courseStudent,
+          studentTimeTable,
+          {
+              'nextWeekTimeTable' : ''
+          });
       this.subjectsService.addNewStudent (newStudent).
         subscribe(
           (response) => console.log(response),

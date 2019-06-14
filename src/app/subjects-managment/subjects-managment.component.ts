@@ -11,7 +11,7 @@ import {SubjectsService} from '../subjects.service';
 export class SubjectsManagmentComponent implements OnInit {
 
   subjectForm: FormGroup;
-    signUpForm: FormGroup;
+
 
     courses: Course[] = [
         {value: '1eso', viewValue: '1º ESO'},

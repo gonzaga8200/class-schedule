@@ -64,7 +64,7 @@ export class ShowStudentsComponent implements OnInit {
    // Few necessary setting options
              const imgWidth = 200;
              const imgHeight = canvas.height * imgWidth / canvas.width;
-             const contentDataURL = canvas.toDataURL('image/png')
+             const contentDataURL = canvas.toDataURL('image/png');
              const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
              const position = 5;
              pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
@@ -84,7 +84,9 @@ export class ShowStudentsComponent implements OnInit {
                doc.setFontSize(18);
                doc.setTextColor(40);
                doc.setFontStyle('normal');
-               doc.text(document.getElementById('st' + i).innerHTML + ' - ' + document.getElementById('course' + i).innerHTML, data.settings.margin.left, headerTop);
+               doc.text(document.getElementById('st' + i).innerHTML + ' - ' +
+                   document.getElementById('course' + i).innerHTML,
+                   data.settings.margin.left, headerTop);
            };
            doc.autoTable({
                html: '#tt' + i,
@@ -116,7 +118,7 @@ export class ShowStudentsComponent implements OnInit {
       (response) => {
         Object.keys(response).forEach(key => {
           const value = response[key];
-          const newStudent = new StudentModel(value.name, value.subjects, value.course, value.timeTable);
+          const newStudent = new StudentModel(value.name, value.subjects, value.course, value.timeTable, value.nextWeekTimeTable);
           this.students.push(newStudent);
         });
       }

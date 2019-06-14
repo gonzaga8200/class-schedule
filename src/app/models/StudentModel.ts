@@ -4,7 +4,7 @@ import {TimeTableClassesModel} from './TimeTableClassesModel';
 
 export class StudentModel {
 
-    constructor (public name: string, public subjects: SubjectModel [], public course: string, public timeTable: TimeTableClassesModel) {
+    constructor (public name: string, public subjects: SubjectModel [], public course: string, public timeTable: TimeTableClassesModel, public nextWeekTimeTable: {}) {
 
     }
 
@@ -20,7 +20,4 @@ export class StudentModel {
         return this.timeTable;
     }
 
-    getTimeTableToArray() {
-        return Object.values(this.getTimeTable());
-    }
 }
