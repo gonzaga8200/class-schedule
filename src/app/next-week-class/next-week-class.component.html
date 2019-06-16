@@ -1,8 +1,46 @@
 <div class="container">
-<div *ngFor="let classRoom of launcherClassRoom | async">
+<!--<div *ngFor="let classRoom of launcherClassRoom | async; let i = index">
+  <p>Aula {{classRoomsRepresentation[i]}}</p>
   <div *ngFor="let examDay of examDays">
+      Día {{examDay}}
+      <div *ngFor="let hour of [0,1,2,3,4,5]">
+        Hora {{hoursRepresentation[hour]}}
+        <div *ngFor="let student of classRoom[examDay][hour]">
+          {{student}}
+        </div>
+      </div>
+  </div>-->
+  <div *ngFor="let classRoom of launcherClassRoom | async; let i = index">
+    <div *ngFor="let examDay of examDays">
+      <div *ngFor="let hour of [0,1,2,3,4,5]">
+        <table class="table table-bordered"
+                style="table-layout: fixed" id="class-students" >
+          <thead>
+          <tr>
+            <th scope="col" colspan="4" class="text-center">Alumnos en clase de {{classRoomsRepresentation[i]}}</th>
+          </tr>
+          <tr>
+            <th scope="col" colspan="4" class="text-center">Día {{examDay}}</th>
+          </tr>
+          <tr>
+            <th scope="col" colspan="4" class="text-center">hora {{hoursRepresentation[hour]}}</th>
+          </tr>
+          <tr class="text-center">
+            <td></td><td>Nombre</td><td>Curso</td><td>Falta</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center" *ngFor="let student of classRoom[examDay][hour]; let i = index">
+            <td>#{{i + 1}}</td>
+            <td scope="row" class="text-center" ><span class="edit-timetable">{{student.name}}</span></td>
+            <td>{{student.course}}</td>
+            <td><input type="checkbox"></td>
 
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
-</div>
 </div>
