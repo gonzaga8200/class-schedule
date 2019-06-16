@@ -83,7 +83,7 @@ export class SubjectsService {
 
   private getStudentClassRoomsFromSubjects(subjects: SubjectModel[]) {
     const studentClassRooms = [];
-    for (let i = 0; i < subjects.length; i ++ ) {
+    for (let i = 0; subjects && i < subjects.length; i ++ ) {
         if (!studentClassRooms.includes(subjects[i].associatedClass)) {
                 studentClassRooms.push(subjects[i].associatedClass);
         }
@@ -177,11 +177,14 @@ export class SubjectsService {
                                     Object.keys(students).forEach(student => {
                                         const studentInfo = students[student];
                                         const studentSubjects = students[student].subjects;
-                                        let studentTimeTable = students[student].timeTable;
+                                        let studentTimeTable;
                                         console.log(studentInfo.subjects);
                                         let tmpStudentTimeTable;
                                         // console.log(studentTimeTable);
                                         let i = 0;
+                                        let classRoomsFromSubjects =
+                                            this.getStudentClassRoomsFromSubjects(studentSubjects);
+                                        studentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
                                         while (i < studentTimeTable.length) {
                                             const studentSubjectsObject = this.getSubjectsStudent(subjectsByHour[i], studentSubjects);
                                             if (studentSubjectsObject.match.length > 0) {
@@ -189,7 +192,7 @@ export class SubjectsService {
                                                     studentTimeTable[i] = 'Examen';
                                                     i++;
                                                 }
-                                                const classRoomsFromSubjects =
+                                                classRoomsFromSubjects =
                                                     this.getStudentClassRoomsFromSubjects(studentSubjectsObject.remain);
                                                 tmpStudentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
                                                 studentTimeTable = this.matchTimeTableFromHour(i, tmpStudentTimeTable, studentTimeTable);
@@ -199,8 +202,8 @@ export class SubjectsService {
                                         }
                                         const nextWeekTimeTable = students[student].nextWeekTimeTable || {};
                                         nextWeekTimeTable[examDate.getDate() + '-' + (examDate.getMonth() + 1)] = studentTimeTable;
-                                        nextWeekTimeTable[afterExamDate.getDate() + '-' + (afterExamDate.getMonth() + 1)] =
-                                            tmpStudentTimeTable;
+                                        /*nextWeekTimeTable[afterExamDate.getDate() + '-' + (afterExamDate.getMonth() + 1)] =
+                                            tmpStudentTimeTable;*/
                                         const finalStudentInfo = new StudentModel(students[student].name,
                                             studentInfo.subjects, students[student].course, students[student].timeTable, nextWeekTimeTable);
                                         this.updateStudent(student, finalStudentInfo);
