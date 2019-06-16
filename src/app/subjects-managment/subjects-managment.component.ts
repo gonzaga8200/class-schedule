@@ -33,6 +33,8 @@ export class SubjectsManagmentComponent implements OnInit {
             'associatedClass': new FormControl(null, Validators.required),
             'date': new FormControl(null, Validators.required),
             'course': new FormControl(null, Validators.required),
+            'hour': new FormControl(null, Validators.required),
+            'duration': new FormControl(null, Validators.required),
         })
     });
 

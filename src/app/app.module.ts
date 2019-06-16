@@ -24,6 +24,8 @@ import { TimetableStudentComponent } from './classes/timetable-student/timetable
 import { SubjectsManagmentComponent } from './subjects-managment/subjects-managment.component';
 import { ExamSubjectsComponent } from './exam-subjects/exam-subjects.component';
 import { SubjectsInDateComponent } from './exam-subjects/subjects-in-date/subjects-in-date.component';
+import { NextWeekComponent } from './next-week/next-week.component';
+import { NextWeekClassComponent } from './next-week-class/next-week-class.component';
 
 ;
 
@@ -38,7 +40,9 @@ import { SubjectsInDateComponent } from './exam-subjects/subjects-in-date/subjec
     TimetableStudentComponent,
     SubjectsManagmentComponent,
     ExamSubjectsComponent,
-    SubjectsInDateComponent
+    SubjectsInDateComponent,
+    NextWeekComponent,
+    NextWeekClassComponent
   ],
   imports: [
     BrowserModule,

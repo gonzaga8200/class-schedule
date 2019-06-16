@@ -75,6 +75,37 @@
         </div>
         <div class="form-group">
           <label class="col-form-label col-sm-6" >
+            Hora
+          </label>
+          <mat-form-field class="col-sm-6" >
+            <mat-select formControlName="hour"
+            >
+              <mat-option>None</mat-option>
+              <mat-option value="0">8:15 - 9:10</mat-option>
+              <mat-option value="1">9:10 - 10:05</mat-option>
+              <mat-option value="2">10:05 - 11:00</mat-option>
+              <mat-option value="3">11:30 - 12:25</mat-option>
+              <mat-option value="4">12:25 - 13:20</mat-option>
+              <mat-option value="5">13:20 - 14:15</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label class="col-form-label col-sm-6" >
+            Hora
+          </label>
+          <mat-form-field class="col-sm-6" >
+            <mat-select formControlName="duration"
+            >
+              <mat-option>None</mat-option>
+              <mat-option value="1">1h</mat-option>
+              <mat-option value="2">2h</mat-option>
+              <mat-option value="3">3h</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label class="col-form-label col-sm-6" >
             Fecha
           </label>
           <mat-form-field class="col-sm-6">

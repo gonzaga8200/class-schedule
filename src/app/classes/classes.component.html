@@ -3,17 +3,6 @@
         <mat-tab [label]="classRooms[classRoomModel]?.name" *ngFor="let classRoomModel of classRoomsModel">
             <mat-tab-group mat-align-tabs="center" >
                 <mat-tab [label]="classRooms[classRoomModel].timeTable[hour].hour" *ngFor="let hour of hoursModel">
-                    <!--<mat-list role="list">
-                        <div class="alert-warning" *ngIf="classRooms[classRoomModel].timeTable[hour].students.length > 8">
-                            <strong>
-                                Atención!!! Número Alumnos - {{classRooms[classRoomModel].timeTable[hour].students.length}}
-                            </strong>
-                        </div>
-                        <mat-list-item role="listitem" *ngFor="let student of classRooms[classRoomModel].timeTable[hour].students"
-                        >
-                            {{student.name}}
-                        </mat-list-item>
-                    </mat-list>-->
 
                     <table class="table table-bordered"
                            [ngClass]="{'table-warning': classRooms[classRoomModel].timeTable[hour].students.length > 32}" style="table-layout: fixed" id="class-students" >

@@ -1,0 +1,25 @@
+<div *ngFor="let student of students | async; let i = index" class="container">
+
+    <div *ngFor="let examDay of examDays">
+
+        <div>
+            <table class="table table-info table-bordered" [id]="'tt'+(i+1) + examDay" >
+                <thead>
+                <tr>
+                    <td class="text-center" colspan="2">Horario del día {{examDay}} para {{student.name}} - {{student.course}}</td>
+                </tr>
+                <tr>
+                    <th scope="col" class="text-center">Hora</th>
+                    <th scope="col" class="text-center">Clase</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let classRoom of student.nextWeekTimeTable[examDay]; let j = index">
+                    <td scope="row" class="text-center">{{classRooms[classRoom].timeTable[j].hour}}</td>
+                    <td class="text-center">{{classRooms[classRoom].name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

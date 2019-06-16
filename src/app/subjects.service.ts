@@ -22,6 +22,7 @@ export class SubjectsService {
         '6' : [1, 1, 1, 1, 1, 1],
     };
 
+
   constructor(private http: HttpClient, private studentService: StudentsService) { }
 
   getSubjectsForJson() {
@@ -59,7 +60,6 @@ export class SubjectsService {
                                 subjectsInHour.push(subject[key]);
                             }
                         }
-
                     );
                     return subjectsInHour;
                 })
@@ -95,7 +95,7 @@ export class SubjectsService {
       const classVariation = studentClassRooms.length;
       let advanceClassRoom = 0;
       let advanceInTimeTable = 0;
-      const studentTimeTable = [];
+      let studentTimeTable = [];
       for (let i = 0; classVariation > 0 && i < this.conversionClassRoomHours[classVariation].length; i++) {
           for (let j = 0; j < this.conversionClassRoomHours[classVariation][i] ; j++) {
               studentTimeTable.push(studentClassRooms[advanceClassRoom]);
@@ -103,6 +103,7 @@ export class SubjectsService {
           }
           advanceClassRoom++;
       }
+      studentTimeTable = studentTimeTable.length > 0 ? studentTimeTable : this.setFlatTimeTableWithClassRoom('extra');
       return studentTimeTable;
   }
 
@@ -117,6 +118,8 @@ export class SubjectsService {
       return Array(6).fill(classRoom);
 
   }
+
+
 
   setNewStudentsTimeTable(date: number) {
       const extraClassRoom = 'extra';
@@ -155,5 +158,108 @@ export class SubjectsService {
                   });
               }
           );
+  }
+
+  setWeekTimeTable(date: number) {
+      const myDate = new Date(date);
+      this.getSubjectsForJsonObservable(myDate)
+          .subscribe(
+              subjects => {
+                        this.getStudents()
+                            .subscribe(
+                                students => {
+                                    const examDate = new Date(date);
+                                    const afterExamDate = new Date();
+                                    afterExamDate.setDate(examDate.getDate() + 1);
+                                    console.log(subjects);
+                                    const subjectsByHour = this.getSubjectsByHour(subjects);
+                                    console.log(subjectsByHour);
+                                    Object.keys(students).forEach(student => {
+                                        const studentInfo = students[student];
+                                        const studentSubjects = students[student].subjects;
+                                        let studentTimeTable = students[student].timeTable;
+                                        console.log(studentInfo.subjects);
+                                        let tmpStudentTimeTable;
+                                        // console.log(studentTimeTable);
+                                        let i = 0;
+                                        while (i < studentTimeTable.length) {
+                                            const studentSubjectsObject = this.getSubjectsStudent(subjectsByHour[i], studentSubjects);
+                                            if (studentSubjectsObject.match.length > 0) {
+                                                for (let d = 0; d < studentSubjectsObject.match[0].duration; d++) {
+                                                    studentTimeTable[i] = 'Examen';
+                                                    i++;
+                                                }
+                                                const classRoomsFromSubjects =
+                                                    this.getStudentClassRoomsFromSubjects(studentSubjectsObject.remain);
+                                                tmpStudentTimeTable = this.getTimeTableFromStudentClassRooms(classRoomsFromSubjects);
+                                                studentTimeTable = this.matchTimeTableFromHour(i, tmpStudentTimeTable, studentTimeTable);
+                                            } else {
+                                                i++;
+                                            }
+                                        }
+                                        const nextWeekTimeTable = students[student].nextWeekTimeTable || {};
+                                        nextWeekTimeTable[examDate.getDate() + '-' + (examDate.getMonth() + 1)] = studentTimeTable;
+                                        nextWeekTimeTable[afterExamDate.getDate() + '-' + (afterExamDate.getMonth() + 1)] =
+                                            tmpStudentTimeTable;
+                                        const finalStudentInfo = new StudentModel(students[student].name,
+                                            studentInfo.subjects, students[student].course, students[student].timeTable, nextWeekTimeTable);
+                                        this.updateStudent(student, finalStudentInfo);
+
+                                    } );
+                                }
+                            );
+              }
+          );
+
+  }
+
+  private getSubjectsByHour(subjects: Object) {
+      const subjectsByHour = {
+          '0': [],
+          '1': [],
+          '2': [],
+          '3': [],
+          '4': [],
+          '5': []
+      };
+      Object.keys(subjects).forEach(subject => {
+          const subjectHour = subjects[subject].hour;
+          subjectsByHour[subjectHour].push(subjects[subject]);
+      });
+      return subjectsByHour;
+
+  }
+  private getSubjectsStudent(subjects: any[], subjectsStudent: any[]) {
+      const resultSubjectKeys = [];
+      const resultSubjectStudent = subjectsStudent;
+      for (let i = 0; i < subjects.length; i++) {
+          const positionSubject = this.isIncludeSubjectInStudent(subjects[i], resultSubjectStudent);
+          if (positionSubject !== -1) {
+            resultSubjectKeys.push(subjects[i]);
+              resultSubjectStudent.splice(positionSubject, 1);
+          }
+      }
+      return {
+          'match': resultSubjectKeys,
+          'remain': resultSubjectStudent
+      };
+  }
+
+  private isIncludeSubjectInStudent (subject: any, subjectsStudent ) {
+
+      for (let i = 0; subjectsStudent && i < subjectsStudent.length; i++) {
+          if (subject.name === subjectsStudent[i].name && subject.course === subjectsStudent[i].course) {
+              return i;
+          }
+      }
+      return -1;
+  }
+
+  private matchTimeTableFromHour (hour: number, newTimeTable: any[], studentTimeTable: any[]) {
+        const result = studentTimeTable;
+        for (let i = hour; i < studentTimeTable.length; i++) {
+            studentTimeTable[i] = newTimeTable[i];
+        }
+        return result;
   }
 }

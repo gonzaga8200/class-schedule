@@ -19,7 +19,7 @@ export class ExamSubjectsComponent implements OnInit {
   }
 
   removeStudentsSubject(date: number) {
-      this.subjectService.setNewStudentsTimeTable(date);
+      this.subjectService.setWeekTimeTable(date);
 
   }
 
